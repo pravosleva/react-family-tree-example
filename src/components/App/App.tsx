@@ -27,11 +27,11 @@ export default React.memo(
     const resetRootHandler = useCallback(() => setRootId(firstNodeId), [firstNodeId]);
 
     const changeSourceHandler = useCallback(
-      (value: string, nodes: readonly Readonly<Node>[]) => {
+      (source: string, nodes: readonly Readonly<Node>[]) => {
         setRootId(nodes[0].id);
         setNodes(nodes);
-        vi.setActiveFamilyTree(nodes)
-        setSource(value);
+        vi.setActiveFamilyTree(nodes);
+        setSource(source);
         setSelectId(undefined);
         setHoverId(undefined);
       },

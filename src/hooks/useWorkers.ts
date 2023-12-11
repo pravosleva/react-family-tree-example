@@ -8,6 +8,7 @@ import { NFT } from '~/types'
 // import { vi } from '~/common/vi'
 import { vi } from '~/utils/vi'
 import { subscribeKey } from 'valtio/utils'
+import { getClonedObject } from '~/utils/getClonedObject'
 
 type TProps = {
   isDebugEnabled?: boolean;
@@ -85,13 +86,14 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
   }: {
     input: {
       opsEventType: NFT.EClientToWorkerEvent;
-      stateValue: string;
+      // stateValue: string;
+      familyTree: any;
     }
   }) => {
     wws.post<{
       input: {
         opsEventType: string;
-        stateValue: string;
+        // stateValue: string;
         appVersion: string;
       }
     }>({
@@ -111,12 +113,14 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
     // NOTE: See also https://valtio.pmnd.rs/docs/api/utils/subscribeKey
     // Subscribe to all changes to the state proxy (and its child proxies)
     const unsubscribe = subscribeKey(vi.common, 'activeFamilyTree', (val) => {
-      if (typeof val === 'string') sendSnapshotToWorker({
+      // console.log(val)
+      if (val) sendSnapshotToWorker({
         input: {
           // opsEventType: NEvents.EMetrixClientOutgoing.SP_MX_EV,
           opsEventType: NFT.EClientToWorkerEvent.MESSAGE,
           // @ts-ignore
-          stateValue: vi.common.stateValue,
+          // stateValue: vi.common.stateValue,
+          familyTree: getClonedObject(val),
         }
       })
     })

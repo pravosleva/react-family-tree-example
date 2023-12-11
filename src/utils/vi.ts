@@ -28,7 +28,7 @@ class Singleton {
     return this._common
   }
   // NOTE: Etc. 3/3
-
+  
   public setActiveFamilyTree(value: any) {
     this._common.activeFamilyTree = value
   }

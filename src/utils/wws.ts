@@ -2,8 +2,8 @@
 import { groupLog } from './groupLog'
 import { NFT } from '~/types'
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const PUBLIC_URL = '/workers' // process?.env?.PUBLIC_URL || '/static3'
+// const isDev = process.env.NODE_ENV === 'production'
+const PUBLIC_URL = process.env.REACT_APP_BASE_URL
 
 // let _c = 0
 
@@ -25,6 +25,7 @@ class Singleton {
   isDebugEnabled: boolean | undefined;
 
   private constructor({ noSharedWorkers, isDebugEnabled }: TProps) {
+    console.log(PUBLIC_URL)
     this.noSharedWorkers = noSharedWorkers
     this.isDebugEnabled = isDebugEnabled
     switch (true) {
@@ -145,7 +146,7 @@ class Singleton {
       eType: NFT.EClientToWorkerEvent.RESET_WORKER_HISTORY,
     })
   }
-  public resetMxHistory() {
+  public resetOpsWorkerHistory() {
     this.resetHistory({ wName: 'opsWorker' })
   }
 }
