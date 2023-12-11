@@ -8,6 +8,8 @@ import { FamilyNode } from '../FamilyNode/FamilyNode';
 import { NodeDetails } from '../NodeDetails/NodeDetails';
 import { NODE_WIDTH, NODE_HEIGHT, SOURCES, DEFAULT_SOURCE } from '../const';
 import { getNodeStyle } from './utils';
+import { useWorkers } from '~/hooks/useWorkers'
+import { vi } from '~/utils/vi'
 
 import css from './App.module.css';
 
@@ -28,6 +30,7 @@ export default React.memo(
       (value: string, nodes: readonly Readonly<Node>[]) => {
         setRootId(nodes[0].id);
         setNodes(nodes);
+        vi.setActiveFamilyTree(nodes)
         setSource(value);
         setSelectId(undefined);
         setHoverId(undefined);
@@ -38,6 +41,8 @@ export default React.memo(
     const selected = useMemo(() => (
       nodes.find(item => item.id === selectId)
     ), [nodes, selectId]);
+
+    useWorkers({ isDebugEnabled: true })
 
     return (
       <div className={css.root}>

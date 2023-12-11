@@ -13,10 +13,7 @@ interface RelationsProps {
 export const Relations = memo(
   function Relations({ title, items, onSelect, onHover, onClear }: RelationsProps) {
     const selectHandler = useCallback((id: string) => () => onSelect(id), [onSelect]);
-    const hoverHandler = useCallback((id: string) => () => {
-      // console.log(id)
-      onHover(id)
-    }, [onHover]);
+    const hoverHandler = useCallback((id: string) => () => onHover(id), [onHover]);
     const clearHandler = useCallback(() => onClear(), [onClear]);
 
     if (!items.length) return null;
@@ -26,7 +23,7 @@ export const Relations = memo(
         <h4>{title}</h4>
         {items.map((item, idx) => (
           <div
-            key={idx}
+            key={`${item.id}-${idx}`}
             className={css.item}
             onClick={selectHandler(item.id)}
             onMouseEnter={hoverHandler(item.id)}

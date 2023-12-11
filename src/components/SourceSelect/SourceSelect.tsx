@@ -20,7 +20,7 @@ export const SourceSelect = memo(
         fetch(url)
           .then((resp) => resp.json())
           .then((data) => Array.isArray(data) && onChange(key, data))
-          .catch(() => {});
+          .catch(console.warn);
       }
       else {
         onChange(key, items[key]);
