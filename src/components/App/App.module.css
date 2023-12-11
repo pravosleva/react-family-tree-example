@@ -32,7 +32,7 @@
   line-height: 1;
   background: #eee;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: var(--size-radius-1);
 }
 
 .wrapper {
@@ -42,7 +42,7 @@
 .tree {
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: var(--size-radius-2);
 }
 
 .reset {
@@ -52,7 +52,7 @@
   padding: 4px 10px;
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: var(--size-radius-2);
   line-height: 1;
   cursor: pointer;
 }

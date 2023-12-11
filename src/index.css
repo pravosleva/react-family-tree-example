@@ -2,6 +2,17 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-male: #90cdf3;
+  --color-female: #ffacc6;
+  --color-selected-outline: #9cffbd;
+  /* --color-selected-outline: rgba(156, 255, 189, .5); */
+  --color-active-outline: #f9f871;
+
+  --size-radius-1: 4px;
+  --size-radius-2: 8px;
+}
+
 html {
   height: 100%;
 }

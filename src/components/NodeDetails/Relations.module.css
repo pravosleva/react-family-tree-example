@@ -1,7 +1,7 @@
 .item {
   padding: 4px 6px;
   line-height: 1;
-  border-radius: 2px;
+  border-radius: var(--size-radius-2);
   transition: background-color .3s;
   cursor: pointer;
 }

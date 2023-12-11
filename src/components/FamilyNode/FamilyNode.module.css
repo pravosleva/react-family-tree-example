@@ -7,20 +7,28 @@
 .inner {
   display: flex;
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
+  flex-direction: column;
   border: 2px solid rgba(0, 0, 0, .2);
-  border-radius: 10px 0;
+  border-radius: var(--size-radius-2) 0;
   overflow: hidden;
   cursor: pointer;
 }
+.inner:hover {
+  border: 2px solid rgba(0, 0, 0, .3);
+}
+.innerStackItem {
+  /* border: 1px solid red; */
+  padding: 4px;
+}
 
 .male {
-  background: #a4ecff;
+  background: var(--color-male);
 }
 
 .female {
-  background: #fdaed8;
+  background: var(--color-female);
 }
 
 .isRoot {
@@ -28,7 +36,11 @@
 }
 
 .isHover {
-  border-color: rgba(0, 0, 0, .8);
+  border-color: rgba(0, 0, 0, .4);
+  outline: 4px solid var(--color-active-outline);
+}
+.isSelected {
+  outline: 4px solid var(--color-selected-outline);
 }
 
 .id {
@@ -39,20 +51,23 @@
 
 .sub {
   position: absolute;
-  top: 6px;
+  top: 12px;
+  transform: translateY(-50%);
   right: 14px;
-  width: 14px;
-  height: 10px;
-  border: 1px solid rgba(0, 0, 0, .2);
-  border-radius: 4px 0;
+  width: 20px;
+  height: 14px;
+  border: 2px solid rgba(0, 0, 0, .2);
+  border-radius: var(--size-radius-1) 0;
   background: #fff;
   cursor: pointer;
 }
-
+.sub:hover {
+  border-color: rgba(0, 0, 0, .3);
+}
 .sub.male {
-  background: #fdaed8;
+  background: var(--color-male);
 }
 
 .sub.female {
-  background: #a4ecff;
+  background: var(--color-female);
 }

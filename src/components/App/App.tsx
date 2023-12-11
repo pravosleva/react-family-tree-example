@@ -70,6 +70,7 @@ export default React.memo(
                   node={node}
                   isRoot={node.id === rootId}
                   isHover={node.id === hoverId}
+                  isSelected={selectId === node.id}
                   onClick={setSelectId}
                   onSubClick={setRootId}
                   style={getNodeStyle(node)}
