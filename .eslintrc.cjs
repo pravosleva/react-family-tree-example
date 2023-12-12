@@ -6,7 +6,15 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist/*', '.eslintrc.cjs', 'public/*', 'config/*', 'build/*'],
+  ignorePatterns: [
+    'dist/*',
+    'dist.*/*',
+    '.eslintrc.cjs',
+    'public/*',
+    'config/*',
+    'build/*',
+    'scripts/*',
+  ],
   rules: {
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
