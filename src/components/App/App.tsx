@@ -42,7 +42,7 @@ export default React.memo(
       nodes.find(item => item.id === selectId)
     ), [nodes, selectId]);
 
-    useWorkers({ isDebugEnabled: true })
+    useWorkers({ isDebugEnabled: false })
     useLayoutEffect(() => {
       vi.setActiveFamilyTree(SOURCES[DEFAULT_SOURCE]);
     }, [])

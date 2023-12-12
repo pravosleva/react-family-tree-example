@@ -81,9 +81,6 @@
   background: #fff;
   cursor: pointer;
 }
-.sub:hover {
-  /* border-color: rgba(0, 0, 0, .3); */
-}
 .sub.male {
   background: var(--color-male);
 }

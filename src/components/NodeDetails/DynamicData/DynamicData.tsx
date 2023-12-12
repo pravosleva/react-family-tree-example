@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import css from './DynamicData.module.css'
 import cn from 'classnames';
 import { ResponsiveBlock } from '~/components/ResponsiveBlock'
@@ -23,7 +23,7 @@ export const DynamicData = ({ id }: TProps) => {
       unsubscribe()
     }
   }, [setPersonInfo, id])
-  const isErrored = useMemo(() => !!personInfo && !personInfo.ok, [personInfo])
+  // const isErrored = useMemo(() => !!personInfo && !personInfo.ok, [personInfo])
 
   return (
     <ResponsiveBlock

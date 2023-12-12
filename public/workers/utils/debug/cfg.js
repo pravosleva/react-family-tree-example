@@ -6,6 +6,9 @@ const dbg = {
     fromServer: {
       isEnabled: true,
     },
+    mwsInternalLogs: {
+      isEnabled: false,
+    },
   },
   socketState: {
     isEnabled: true,

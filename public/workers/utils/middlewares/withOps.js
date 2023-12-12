@@ -39,7 +39,7 @@ const withOps = async ({
           for (const person of familyTree) {
             output = await fetchRetry({
               url: 'https://pravosleva.pro/express-helper/subprojects/exp.family/get-single-person-data',
-              delay: 10000,
+              delay: 5 * 1000,
               tries: 5,
               fetchOptions: {
                 method: 'POST',
@@ -74,10 +74,11 @@ const withOps = async ({
                 }
               })
             if (typeof cb[eventData?.input?.opsEventType] === 'function') {
-              log({
+              if (dbg.workerEvs.mwsInternalLogs.isEnabled) log({
                 label: `c->(worker):port:listener:opsEventType:${eventData?.input?.opsEventType}->[cb]`,
                 msgs: ['input', input, 'output', output],
               })
+
               cb[eventData?.input?.opsEventType]({
                 output,
               })
