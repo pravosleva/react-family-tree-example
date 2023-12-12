@@ -17,7 +17,7 @@ importScripts('./utils/events/types.js')
 importScripts('./utils/events/eValidator.js')
 importScripts('./utils/debug/cfg.js')
 importScripts('./utils/debug/tools.js')
-// importScripts('./u/dbg/debug.js')
+importScripts('./utils/fetchRetry.js')
 // importScripts('./u/s-tools/rootSubscribers.js')
 // importScripts('./u/s-tools/mws/withCustomEmitters.js')
 // importScripts('./u/s-tools/socket.io-client@4.7.2.min.js')
@@ -100,7 +100,7 @@ let port // TODO? var ports = new Map()
       // --
 
       if (dbg.workerEvs.fromClient.isEnabled) log({
-        label: 'message received SharedWorker receive evt by client',
+        label: 'SharedWorker received message: evt by client',
         msgs: [e.data],
       })
 
@@ -127,7 +127,7 @@ let port // TODO? var ports = new Map()
               input,
             }
           } = e
-    
+
           if (!!input?.opsEventType) {
             _perfInfo.tsList.push({
               descr: `c->[sw:listener:opsEventType]->s: ${input.opsEventType}`,

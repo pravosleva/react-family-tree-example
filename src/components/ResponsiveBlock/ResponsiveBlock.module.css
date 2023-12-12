@@ -1,0 +1,8 @@
+.base {
+  width: 100%;
+  /* border: 1px dashed red; */
+}
+
+.isPadded {
+  padding: 10px;
+}

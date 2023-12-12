@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useLayoutEffect } from 'react';
 import type { Node, ExtNode } from 'relatives-tree/lib/types';
 import treePackage from 'relatives-tree/package.json';
 import ReactFamilyTree from 'react-family-tree';
@@ -43,6 +43,9 @@ export default React.memo(
     ), [nodes, selectId]);
 
     useWorkers({ isDebugEnabled: true })
+    useLayoutEffect(() => {
+      vi.setActiveFamilyTree(SOURCES[DEFAULT_SOURCE]);
+    }, [])
 
     return (
       <div className={css.root}>

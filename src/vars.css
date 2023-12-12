@@ -1,0 +1,18 @@
+:root {
+  --color-male: #90cdf3;
+  --color-female: #ffacc6;
+  --color-selected-outline: #9cffbd;
+  /* --color-selected-outline: rgba(156, 255, 189, .5); */
+  --color-active-outline: #f9f871;
+  --color-err-msg-bg: #c84f4f;
+
+  --size-radius-1: 4px;
+  --size-radius-2: 8px;
+
+  --monitor-xs: 320px;
+  --monitor-sm: 640px;
+  --monitor-md: 768px;
+  --monitor-lg: 1024px;
+  --monitor-xl: 1280px;
+  --monitor-2xl: 1536px;
+}

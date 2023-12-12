@@ -11,7 +11,7 @@ const compose = (fns, arg) => {
   )
 }
 
-const rootSubscribers = (arg) => compose([
+const withRootMW = (arg) => compose([
   withOps,
 
   // -- NOTE: For example

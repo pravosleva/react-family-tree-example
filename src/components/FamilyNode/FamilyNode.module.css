@@ -14,12 +14,31 @@
   border-radius: var(--size-radius-2) 0;
   overflow: hidden;
   cursor: pointer;
+  
+  position: static;
 }
-.inner:hover {
+/* .inner:hover {
   border: 2px solid rgba(0, 0, 0, .3);
+} */
+.absoluteBadge {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: rotate(0deg) translateX(50%) translateY(-50%);
+}
+.msgErr {
+  background-color: var(--color-err-msg-bg);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  max-width: 100px;
+  word-break: break-word;
+  border: 2px solid #fff;
+  font-size: 6px;
+  font-weight: bold;
+  box-shadow: 0 5px 10px 0px rgba(7,7,7,.3);
 }
 .innerStackItem {
-  /* border: 1px solid red; */
   padding: 4px;
 }
 
@@ -36,8 +55,9 @@
 }
 
 .isHover {
-  border-color: rgba(0, 0, 0, .4);
+  /* border-color: rgba(0, 0, 0, .4); */
   outline: 4px solid var(--color-active-outline);
+  box-shadow: 0 5px 10px 0px rgba(7,7,7,.3);
 }
 .isSelected {
   outline: 4px solid var(--color-selected-outline);
@@ -46,7 +66,7 @@
 .id {
   font-size: 7px;
   line-height: 1;
-  opacity: .5;
+  /* opacity: .5; */
 }
 
 .sub {
@@ -62,7 +82,7 @@
   cursor: pointer;
 }
 .sub:hover {
-  border-color: rgba(0, 0, 0, .3);
+  /* border-color: rgba(0, 0, 0, .3); */
 }
 .sub.male {
   background: var(--color-male);

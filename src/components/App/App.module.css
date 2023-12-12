@@ -61,6 +61,11 @@
   position: absolute;
   left: 10px;
   top: 60px;
+  max-width: calc(100vw - 20px);
+  word-break: break-word;
+
+  max-height: calc(100svh - 60px - 10px);
+  overflow-y: auto;
 }
 
 @media (max-width: 600px) {

@@ -4,7 +4,7 @@
 import { useLayoutEffect, useCallback } from 'react'
 import { groupLog, wws } from '~/utils'
 // import { NEvents } from '~/types'
-import { NFT } from '~/types'
+import { NFT, TPersonInfo } from '~/types'
 // import { vi } from '~/common/vi'
 import { vi } from '~/utils/vi'
 import { subscribeKey } from 'valtio/utils'
@@ -19,13 +19,18 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
   useLayoutEffect(() => {
     wws.subscribeOnData<{
       data: {
-        output: any;
-        type: NFT.EWorkerToClientEvent;
-        yourData: { [key: string]: any; };
+        __eType: NFT.EWorkerToClientEvent;
+        data: {
+          // output: any;
+          type: NFT.EWorkerToClientEvent;
+          // yourData: { [key: string]: any; };
+          
+          output: TPersonInfo;
+        };
       };
     }>({
       wName: 'opsWorker',
-      cb: (e: any) => {
+      cb: (e) => {
         switch (e.data.__eType) {
           // case NEvents.ECustom.WORKER_TO_CLIENT_REMOTE_DATA:
           //   if (isDebugEnabled) groupLog({
@@ -34,6 +39,11 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
           //   })
           //   // NOTE: App logic?
           //   break
+          case NFT.EWorkerToClientEvent.SINGLE_PERSON_DATA:
+            if (e.data.data.output) {
+              vi.setSinglePersonData(e.data.data.output)
+            }
+            break
           default: {
             if (isDebugEnabled) groupLog({
               namespace: `--useWorkerOps:by-opsWorker ⚠️ (on data) UNHANDLED! [${e.data.__eType}] e.data:`,
@@ -86,14 +96,12 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
   }: {
     input: {
       opsEventType: NFT.EClientToWorkerEvent;
-      // stateValue: string;
       familyTree: any;
     }
   }) => {
     wws.post<{
       input: {
         opsEventType: string;
-        // stateValue: string;
         appVersion: string;
       }
     }>({
@@ -101,7 +109,7 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
       eType: NFT.EClientToWorkerEvent.MESSAGE,
       data: {
         input: {
-          appVersion: '0.0.1', // vi.common.appVersion,
+          appVersion: vi.common.appVersion,
           ...input,
         },
       },
@@ -117,7 +125,7 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
       if (val) sendSnapshotToWorker({
         input: {
           // opsEventType: NEvents.EMetrixClientOutgoing.SP_MX_EV,
-          opsEventType: NFT.EClientToWorkerEvent.MESSAGE,
+          opsEventType: NFT.EClientToWorkerEvent.GET_PERSONS_DATA,
           // @ts-ignore
           // stateValue: vi.common.stateValue,
           familyTree: getClonedObject(val),

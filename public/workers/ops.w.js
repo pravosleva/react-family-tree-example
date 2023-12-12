@@ -17,7 +17,7 @@ importScripts('./utils/events/types.js')
 importScripts('./utils/events/eValidator.js')
 importScripts('./utils/debug/cfg.js')
 importScripts('./utils/debug/tools.js')
-// importScripts('./u/dbg/debug.js')
+importScripts('./utils/fetchRetry.js')
 // importScripts('./u/s-tools/rootSubscribers.js')
 // importScripts('./u/s-tools/mws/withCustomEmitters.js')
 // importScripts('./u/s-tools/socket.io-client@4.7.2.min.js')
@@ -104,7 +104,10 @@ var window = self
             name: 'Сброс истории W',
           },
         ]
-        self.postMessage({ __eType: NES.Custom.EType.WORKER_TO_CLIENT_RESET_HISTORY_OK, data: {  tsList: _perfInfo.tsList } })
+        self.postMessage({
+          __eType: NES.Custom.EType.WORKER_TO_CLIENT_RESET_HISTORY_OK,
+          data: { tsList: _perfInfo.tsList },
+        })
         break
       default: {
         const {
@@ -135,7 +138,7 @@ var window = self
                   data: e.data,
                   name: 'W получил результат расчета',
                 })
-                port.postMessage({
+                self.postMessage({
                   __eType: NES.Custom.Client.FamilyTree.EWorkerToClientEvent.SINGLE_PERSON_DATA,
                   data: {
                     _service: {

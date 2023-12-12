@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { groupLog } from './groupLog'
 import { NFT } from '~/types'
+// import { vi } from '~/utils/vi'
 
 // const isDev = process.env.NODE_ENV === 'production'
 const PUBLIC_URL = process.env.REACT_APP_BASE_URL
@@ -30,14 +31,14 @@ class Singleton {
     this.isDebugEnabled = isDebugEnabled
     switch (true) {
       case noSharedWorkers:
-        this.opsWorker = new Worker(`${PUBLIC_URL}/ops.w.js`)
+        this.opsWorker = new Worker(`${PUBLIC_URL}/workers/ops.w.js`)
 
         // Etc.
         break
       default:
         this.opsWorker = SharedWorker
-          ? new SharedWorker(`${PUBLIC_URL}/ops.sw.js`)
-          : new Worker(`${PUBLIC_URL}/ops.w.js`)
+          ? new SharedWorker(`${PUBLIC_URL}/workers/ops.sw.js`)
+          : new Worker(`${PUBLIC_URL}/workers/ops.w.js`)
         if (this.opsWorker instanceof SharedWorker) this.opsWorker.port.start()
 
         // Etc.

@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { Relation } from 'relatives-tree/lib/types';
 import css from './Relations.module.css';
+import { ResponsiveBlock } from '~/components/ResponsiveBlock'
 
 interface RelationsProps {
   title: string;
@@ -19,8 +20,8 @@ export const Relations = memo(
     if (!items.length) return null;
 
     return (
-      <div>
-        <h4>{title}</h4>
+      <ResponsiveBlock isPaddedAnyway>
+        <h4 className={css.h4}>{title}</h4>
         {items.map((item, idx) => (
           <div
             key={`${item.id}-${idx}`}
@@ -32,7 +33,7 @@ export const Relations = memo(
             {item.id} ({item.type})
           </div>
         ))}
-      </div>
+      </ResponsiveBlock>
     );
   },
 );

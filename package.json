@@ -72,12 +72,14 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "deploy2:local": "yarn build && bash deploy2.local.sh",
+    "deploy2:prod": "yarn deploy2:local && bash deploy2.prod.sh pravosleva"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "https://sanichkotikov.github.io/react-family-tree-example/",
+  "homepage": "./",
   "browserslist": [
     "Chrome 116",
     "Safari 16"

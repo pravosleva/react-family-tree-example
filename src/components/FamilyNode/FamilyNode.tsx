@@ -1,7 +1,10 @@
-import React, { useCallback } from 'react';
-import classNames from 'classnames';
+import React, { useCallback, useState, useEffect, useMemo } from 'react';
+import cn from 'classnames';
 import type { ExtNode } from 'relatives-tree/lib/types';
 import css from './FamilyNode.module.css';
+import { vi } from '~/utils/vi';
+import { subscribeKey } from 'valtio/utils';
+import { TPersonInfo } from '~/types'
 
 interface FamilyNodeProps {
   node: ExtNode;
@@ -18,10 +21,24 @@ export const FamilyNode = React.memo(
     const clickHandler = useCallback(() => onClick(node.id), [node.id, onClick]);
     const clickSubHandler = useCallback(() => onSubClick(node.id), [node.id, onSubClick]);
 
+    const [personInfo, setPersonInfo] = useState<TPersonInfo | null>(vi.common.personsInfo[node.id] || null)
+    useEffect(() => {
+      // NOTE: See also https://valtio.pmnd.rs/docs/api/utils/subscribeKey
+      // Subscribe to all changes to the state proxy (and its child proxies)
+      const unsubscribe = subscribeKey(vi.common.personsInfo, node.id, (val) => {
+        setPersonInfo(val)
+      })
+      return () => {
+        // Unsubscribe by calling the result
+        unsubscribe()
+      }
+    }, [setPersonInfo, node.id])
+    const isErrored = useMemo(() => !!personInfo && !personInfo.ok, [personInfo])
+
     return (
       <div className={css.root} style={style}>
         <div
-          className={classNames(
+          className={cn(
             css.inner,
             css[node.gender],
             isRoot && css.isRoot,
@@ -31,25 +48,26 @@ export const FamilyNode = React.memo(
           onClick={clickHandler}
         >
           <div
-            className={classNames(
+            className={cn(
               css.id,
               css.innerStackItem,
             )}
           >
-            {node.id}
+            {personInfo?.ok && personInfo?.data ? `${personInfo.data.firstName} ${personInfo.data.middleName} ${personInfo.data.lastName}` : node.id}
           </div>
-          <div
-            className={classNames(
-              css.id,
-              css.innerStackItem,
-            )}
-          >
-            isHover: {String(isHover)}
-          </div>
+          {
+            isErrored && !!personInfo?.message && (
+              <div
+                className={cn(css.absoluteBadge, css.msgErr, 'fade-in')}
+              >
+                {personInfo.message}
+              </div>
+            )
+          }
         </div>
         {node.hasSubTree && (
           <div
-            className={classNames(css.sub, css[node.gender])}
+            className={cn(css.sub, css[node.gender])}
             onClick={clickSubHandler}
           />
         )}
