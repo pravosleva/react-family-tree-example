@@ -2,6 +2,13 @@ import React, { memo, useCallback, ChangeEvent } from 'react';
 import type { Node } from 'relatives-tree/lib/types';
 import { URL_LABEL } from '../const';
 import { personsValidate, NVal } from '~/utils/validate'
+import {
+  useSnackbar,
+  SnackbarMessage as TSnackbarMessage,
+  OptionsObject as IOptionsObject,
+  // SharedProps as ISharedProps,
+  // closeSnackbar,
+} from 'notistack'
 
 interface SourceSelectProps {
   value: string;
@@ -24,14 +31,18 @@ const apiErrorHandler = ({ validateFn }: { validateFn: (j: any) => NVal.TValidat
     case !!json: {
       const validation = validateFn(json)
       if (validation.ok) return Promise.resolve(json)
-      return Promise.reject(validation.reason || 'API ERR #1')
+      throw new Error(validation.reason || 'API ERR #2')
     }
-    default: return Promise.reject(`API ERR #2 incorrect json (${typeof json})`)
+    default: throw new Error(`API ERR #3 incorrect json (${typeof json})`)
   }
 }
 
 export const SourceSelect = memo(
   function SourceSelect({ value, items, onChange }: SourceSelectProps) {
+    const { enqueueSnackbar } = useSnackbar()
+    const showNotif = useCallback((msg: TSnackbarMessage, opts?: IOptionsObject) => {
+      if (!document.hidden) enqueueSnackbar(msg, opts)
+    }, [enqueueSnackbar])
     const changeHandler = useCallback((event: ChangeEvent<HTMLSelectElement>) => {
       const key = event.target.value;
 
@@ -47,16 +58,18 @@ export const SourceSelect = memo(
               const validate = personsValidate(arr)
               if (!validate.ok) {
                 result.ok = false
-                result.reason = `Incorrect data: ${validate.reason || 'API ERR #0 (no reason)'}`
+                result.reason = `Incorrect data: ${validate.reason || 'API ERR #1 (no reason)'}`
               }
               return result
             }
           }))
           .then((data) => Array.isArray(data) && onChange(key, data))
-          .catch(console.warn);
+          .catch((err) => {
+            showNotif(err.message || 'Unknown API ERR #0', { variant: 'error' })
+          });
       }
       else onChange(key, items[key]);
-    }, [items, onChange]);
+    }, [items, onChange, showNotif]);
 
     return (
       <select value={value} onChange={changeHandler}>
