@@ -37,6 +37,8 @@ const apiErrorHandler = ({ validateFn }: { validateFn: (j: any) => NVal.TValidat
   }
 }
 
+const localStorageDefaultUrlSourseName = 'react-family-2023.default-url'
+
 export const SourceSelect = memo(
   function SourceSelect({ value, items, onChange }: SourceSelectProps) {
     const { enqueueSnackbar } = useSnackbar()
@@ -47,8 +49,10 @@ export const SourceSelect = memo(
       const key = event.target.value;
 
       if (key === URL_LABEL) {
-        const url = prompt('Paste the url to load:');
+        const url = prompt('Paste the url to load:', localStorage.getItem(localStorageDefaultUrlSourseName) || undefined);
         if (!url) return;
+
+        localStorage.setItem(localStorageDefaultUrlSourseName, url)
 
         fetch(url)
           .then((resp) => resp.json())
