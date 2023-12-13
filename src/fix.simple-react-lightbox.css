@@ -1,0 +1,21 @@
+.SRLElementWrapper > svg.SRLLoadingIndicator {
+  left: calc(50% - 25px);
+}
+
+#SRLLightbox {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.SRLThumbnailsButton,
+.SRLNextButton,
+.SRLPrevButton,
+.SRLCloseButton,
+.SRLExpandButton,
+.SRLZoomInButton,
+.SRLZoomOutButton {
+  border-radius: 8px !important;
+}
+
+.SRLControls > *:not(:last-child) {
+  margin-right: 8px;
+}

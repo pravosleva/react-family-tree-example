@@ -13,3 +13,49 @@
   border-radius: 8px;
   font-weight: bold;
 }
+
+/* .srLWrapperLayout.bigFirst {
+  border: 1px dashed red;
+} */
+.srLWrapperLayout.bigFirst > div {
+  display: grid;
+  column-gap: 10px;
+  row-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+
+/* .srLWrapperLayout.bigFirst > div {} */
+
+/* .srLWrapperLayout.bigFirst > div > .gridItem {} */
+
+.srLWrapperLayout.bigFirst > div > div.gridItem > a {
+  height: 100px;
+  width: 100%;
+  
+}
+.srLWrapperLayout.bigFirst > div > div.gridItem > a {
+  color: inherit;
+  display: block;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.srLWrapperLayout.bigFirst img {
+  height: 100px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.srLWrapperLayout.bigFirst > div > .gridItem {
+  position: relative;
+}
+
+.srLWrapperLayout.bigFirst > div > div.gridItem > a > span > span {
+  display: unset !important;
+}
+.srLWrapperLayout.bigFirst > div > div.gridItem > a > span > span > * {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

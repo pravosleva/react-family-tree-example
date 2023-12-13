@@ -79,3 +79,12 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.truncate-overflow-single-line {
+  --max-lines: 1;
+  max-height: 27px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
