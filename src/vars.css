@@ -5,6 +5,12 @@
   /* --color-selected-outline: rgba(156, 255, 189, .5); */
   --color-active-outline: #f9f871;
   --color-err-msg-bg: #c84f4f;
+  --color-success-msg-bg: #00c9a7;
+  /* --color-success-msg-bg: #00d2fc; */
+  --color-default-msg-bg: lightgray;
+
+  --color-info-msg-text: #0081cf;
+  --color-info-msg-text-dark: #2c73d2;
 
   --size-radius-1: 4px;
   --size-radius-2: 8px;

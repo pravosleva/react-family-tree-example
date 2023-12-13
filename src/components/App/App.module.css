@@ -61,7 +61,8 @@
   position: absolute;
   left: 10px;
   top: 60px;
-  max-width: calc(100vw - 20px);
+  /* max-width: calc(100vw - 20px); */
+  max-width: 450px; 
   word-break: break-word;
 
   max-height: calc(100svh - 60px - 10px);

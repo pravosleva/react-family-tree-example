@@ -25,19 +25,64 @@
   top: 50%;
   right: 50%;
   transform: rotate(0deg) translateX(50%) translateY(-50%);
+  box-shadow: 0 5px 10px 0px rgba(7,7,7,.3);
 }
 .msgErr {
   background-color: var(--color-err-msg-bg);
   color: #fff;
   padding: 2px 6px;
-  border-radius: 4px;
-  max-width: 100px;
+  max-width: 97px;
   word-break: break-word;
   border: 2px solid #fff;
+  border-radius: 4px;
   font-size: 6px;
   font-weight: bold;
-  box-shadow: 0 5px 10px 0px rgba(7,7,7,.3);
 }
+.msgSuccess {
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+
+  /* background-color: var(--color-default-msg-bg); */
+  /* color: #fff; */
+  padding: 2px 6px;
+  max-width: 97px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  font-size: 6px;
+  font-weight: bold;
+  /* transition: all ease-in .3s; */
+  /* transition: all .3s cubic-bezier(.47,1.64,.41,.8); */
+  /* transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
+}
+.msgSuccess:hover {
+  flex-direction: column;
+}
+.msgSuccess > .descr {
+  text-align: right;
+  transition: all ease-in .3s;
+  max-width: 100%;
+}
+.msgSuccess:hover > .descr {
+  text-align: center;
+}
+.smallAva {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: all ease-in .3s;
+}
+.smallAva:hover {
+  transform: scale(1.4);
+  border-radius: 0px;
+  /* box-shadow: 0 5px 10px 0px rgba(7,7,7,.3); */
+}
+/* .smallAva:hover ~ .descr {
+  opacity: 0.5;
+} */
 .innerStackItem {
   padding: 4px;
 }

@@ -47,20 +47,51 @@ export const FamilyNode = React.memo(
           )}
           onClick={clickHandler}
         >
-          <div
+          {/* <div
             className={cn(
               css.id,
               css.innerStackItem,
             )}
           >
-            {personInfo?.ok && personInfo?.data ? `${personInfo.data.firstName} ${personInfo.data.middleName} ${personInfo.data.lastName}` : node.id}
-          </div>
+            {personInfo?.ok && personInfo?.data?.customService ? `${personInfo.data.customService.baseInfo.firstName} ${personInfo.data.customService.baseInfo.middleName} ${personInfo.data.customService.baseInfo.lastName}` : node.id}
+          </div> */}
           {
             isErrored && !!personInfo?.message && (
               <div
                 className={cn(css.absoluteBadge, css.msgErr, 'fade-in')}
               >
                 {personInfo.message}
+              </div>
+            )
+          }
+          {
+            !isErrored && personInfo?.data?.customService?.baseInfo && (
+              <div
+                className={cn(css.absoluteBadge, css.msgSuccess, 'fade-in', 'backdrop-blur')}
+              >
+                {
+                  !!personInfo.data.googleSheets?.mainGallery?.[0] && (
+                    <img className={css.smallAva} src={personInfo.data.googleSheets?.mainGallery?.[0].url} alt='logo' />
+                  )
+                }
+                <div className={cn(css.descr, 'truncate')}>
+                  
+                  {
+                    personInfo?.ok && personInfo?.data?.customService
+                    ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                        }}>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.baseInfo.firstName}</span>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.baseInfo.middleName}</span>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.baseInfo.lastName}</span>
+                      </div> 
+                    )
+                    : node.id
+                  }
+                </div>
               </div>
             )
           }

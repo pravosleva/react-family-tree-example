@@ -3,6 +3,9 @@
 } */
 
 .wrapper > pre {
+  /* word-break: break-word; */
+  white-space: pre-wrap;
+  /* word-break: break-all; */
   margin: 0;
   background-color: gray;
   color: #fff;

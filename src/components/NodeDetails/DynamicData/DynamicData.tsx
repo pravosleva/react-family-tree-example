@@ -26,13 +26,18 @@ export const DynamicData = ({ id }: TProps) => {
   // const isErrored = useMemo(() => !!personInfo && !personInfo.ok, [personInfo])
 
   return (
-    <ResponsiveBlock
-      className={cn(
-        css.wrapper,
-      )}
-      isPaddedAnyway
-    >
-      <pre>{JSON.stringify(personInfo, null, 2)}</pre>
-    </ResponsiveBlock>
+    <>
+      <ResponsiveBlock
+        className={cn(
+          css.wrapper,
+        )}
+        isPaddedAnyway
+      >
+        <pre>{JSON.stringify(personInfo, null, 2)}</pre>
+      </ResponsiveBlock>
+      <ResponsiveBlock isPaddedAnyway>
+        MAIN GALLERY
+      </ResponsiveBlock>
+    </>
   )
 }

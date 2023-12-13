@@ -73,3 +73,9 @@ body {
     backdrop-filter: blur(.1em);
   }
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

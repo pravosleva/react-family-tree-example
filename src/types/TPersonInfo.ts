@@ -3,8 +3,19 @@ export type TPersonInfo = {
   message?: string;
   data?: {
     id: string;
-    firstName: string;
-    middleName: string;
-    lastName: string;
+    customService?: {
+      baseInfo: {
+        id: string;
+        firstName: string;
+        middleName: string;
+        lastName: string;
+      };
+    };
+    googleSheets?: {
+      mainGallery: {
+        url: string;
+        descr?: string;
+      }[];
+    };
   };
 }

@@ -38,14 +38,15 @@ const withOps = async ({
 
           for (const person of familyTree) {
             output = await fetchRetry({
-              url: 'https://pravosleva.pro/express-helper/subprojects/exp.family/get-single-person-data',
+              // url: 'https://pravosleva.pro/express-helper/subprojects/exp.family/get-single-person-data',
+              url: 'https://pravosleva.pro/express-helper/pravosleva-blog-2023/family-tree-2023/v1/get-single-person-info',
               delay: 5 * 1000,
               tries: 5,
               fetchOptions: {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                  id: person.id,
+                  personId: person.id,
                 }),
                 // signal: abortController.signal,
               },
@@ -54,11 +55,12 @@ const withOps = async ({
                 const result = await res.json();
                 switch (true) {
                   case !result.ok:
+                    console.log(result)
                     throw new Error(result.message || 'Ошибка получения данных #1')
                   case !result.data:
                     throw new Error(result.message || 'Ошибка получения данных #2')
                   case !result.data?.id:
-                    throw new Error(res.message || 'Ошибка данных !data.id')
+                    throw new Error(result?.message || res?.message || 'Ошибка данных !data.id')
                   default:
                     break
                 }
