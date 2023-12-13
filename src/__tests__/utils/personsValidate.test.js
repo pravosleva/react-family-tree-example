@@ -4,7 +4,7 @@ it('idValidate #0: not ok (persons is empty array)', () => {
   const tested = personsValidate([])
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: persons Array should be not empty',
+    reason: 'Incorrect persons array <- persons Array should be not empty',
   }
 
   expect(tested).toEqual(expected)
@@ -14,7 +14,7 @@ it('idValidate #1: not ok (persons is undefined)', () => {
   const tested = personsValidate()
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: persons should be an Array',
+    reason: 'Incorrect persons array <- persons should be an Array',
   }
 
   expect(tested).toEqual(expected)
@@ -33,7 +33,7 @@ it('idValidate #2: not ok (id is number)', () => {
   ])
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: incorrect id for index 0 (should be not empty string)',
+    reason: 'Incorrect persons array <- incorrect id for index 0 (should be not empty string)',
   }
 
   expect(tested).toEqual(expected)
@@ -52,7 +52,7 @@ it('idValidate #3: not ok (incorrect gender)', () => {
   ])
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: incorrect person.gender for index 0 (should be \"male\" or \"female\")',
+    reason: 'Incorrect persons array <- incorrect person.gender for index 0 (should be \"male\" or \"female\")',
   }
 
   expect(tested).toEqual(expected)
@@ -73,7 +73,7 @@ it('idValidate #4: not ok (incorrect parent format: empty object)', () => {
   ])
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: Person err: Incorrect parents array: key \"type\" is required for index \"0\"',
+    reason: 'Incorrect persons array <- Person err <- Incorrect parents array <- key \"type\" is required for index \"0\"',
   }
 
   expect(tested).toEqual(expected)
@@ -96,7 +96,7 @@ it('idValidate #5: not ok (incorrect parent format: incorrect type only)', () =>
   ])
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: Person err: Incorrect parents array: incorrect person.parent.type for index 0 (should be \"blood\")',
+    reason: 'Incorrect persons array <- Person err <- Incorrect parents array <- incorrect person.parent.type for index 0 (should be \"blood\")',
   }
 
   expect(tested).toEqual(expected)
@@ -119,7 +119,7 @@ it('idValidate #6: not ok (incorrect parent format: no id for parent)', () => {
   ])
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: Person err: Incorrect parents array: key \"id\" is required for index \"0\"',
+    reason: 'Incorrect persons array <- Person err <- Incorrect parents array <- key \"id\" is required for index \"0\"',
   }
 
   expect(tested).toEqual(expected)
@@ -146,7 +146,7 @@ it('idValidate #7: not ok (no id for first parent)', () => {
   ])
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: Person err: Incorrect parents array: key \"id\" is required for index \"0\"',
+    reason: 'Incorrect persons array <- Person err <- Incorrect parents array <- key \"id\" is required for index \"0\"',
   }
 
   expect(tested).toEqual(expected)
@@ -173,7 +173,7 @@ it('idValidate #8: not ok (no id for 2nd parent)', () => {
   ])
   const expected = {
     ok: false,
-    reason: 'Incorrect persons array: Person err: Incorrect parents array: key \"id\" is required for index \"1\"',
+    reason: 'Incorrect persons array <- Person err <- Incorrect parents array <- key \"id\" is required for index \"1\"',
   }
 
   expect(tested).toEqual(expected)

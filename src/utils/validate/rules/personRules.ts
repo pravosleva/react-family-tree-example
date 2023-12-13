@@ -20,7 +20,7 @@ const parentsValidate = (arr: any[], index?: number) => {
     res.ok = false
     res.reason = typeof index === 'boolean'
       ? `Person index ${index} err: Incorrect parents array: ${errs.join(', ')}`
-      : `Person err: Incorrect parents array: ${errs.join(', ')}`
+      : `Person err <- Incorrect parents array <- ${errs.join(', ')}`
   }
   return res
 }

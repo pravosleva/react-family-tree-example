@@ -28,7 +28,7 @@ export const personsValidate = (persons: any): NVal.TValidationResut => {
   }
   if (errs.length > 0) {
     res.ok = false
-    res.reason = `Incorrect persons array: ${errs.join(', ')}`
+    res.reason = `Incorrect persons array <- ${errs.join(', ')}`
   }
   return res
 }
