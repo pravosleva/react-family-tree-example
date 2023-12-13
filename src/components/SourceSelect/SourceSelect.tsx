@@ -1,17 +1,15 @@
 import React, { memo, useCallback, ChangeEvent } from 'react';
 import type { Node } from 'relatives-tree/lib/types';
 import { URL_LABEL } from '../const';
+import { personsValidate, NVal } from '~/utils/validate'
 
 interface SourceSelectProps {
   value: string;
   items: Record<string, readonly Readonly<Node>[]>;
   onChange: (value: string, nodes: readonly Readonly<Node>[]) => void;
 }
-type TValidationResut = {
-  ok: boolean;
-  reason?: string;
-}
-const apiErrorHandler = ({ validateFn }: { validateFn: (j: any) => TValidationResut }) => (json: any): Promise<any> => {
+
+const apiErrorHandler = ({ validateFn }: { validateFn: (j: any) => NVal.TValidationResut }) => (json: any): Promise<any> => {
   // TODO: v2: Better way when api will return something like this: { ok: boolean; message?: string; data?: person[]; }
   // switch (true) {
   //   case json?.ok && json?.data: {
@@ -31,15 +29,6 @@ const apiErrorHandler = ({ validateFn }: { validateFn: (j: any) => TValidationRe
     default: return Promise.reject(`API ERR #2 incorrect json (${typeof json})`)
   }
 }
-const personValidate = (person: any, index: number): TValidationResut => {
-  const res: TValidationResut = { ok: true }
-  if (!person?.id) {
-    res.ok = false
-    res.reason = `no id for index ${index}`
-  }
-  return res
-}
-const isPersonCorrect = (person: any): boolean => !!person?.id
 
 export const SourceSelect = memo(
   function SourceSelect({ value, items, onChange }: SourceSelectProps) {
@@ -54,25 +43,11 @@ export const SourceSelect = memo(
           .then((resp) => resp.json())
           .then(apiErrorHandler({
             validateFn: (arr) => {
-              const result: TValidationResut = { ok: true }
-              switch (true) {
-                case !Array.isArray(arr):
-                  result.ok = false
-                  result.reason = 'res.data should be an Array'
-                  break
-                // NOTE: validate items
-                case !arr.every(isPersonCorrect): {
-                  let counter = 0
-                  result.ok = false
-                  result.reason = `res.data array has incorrect persons: ${arr.reduce((acc: string[], cur: any) => {
-                    const validate = personValidate(cur, counter)
-                    if (!validate.ok) acc.push(validate.reason || `No reason for incorrect case (index ${counter})`)
-                    counter += 1
-                    return acc
-                  }, []).join(', ')}`
-                  break
-                }
-                default: break
+              const result: NVal.TValidationResut = { ok: true }
+              const validate = personsValidate(arr)
+              if (!validate.ok) {
+                result.ok = false
+                result.reason = `Incorrect data: ${validate.reason || 'API ERR #0 (no reason)'}`
               }
               return result
             }

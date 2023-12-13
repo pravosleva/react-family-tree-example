@@ -14,6 +14,8 @@ module.exports = {
     'config/*',
     'build/*',
     'scripts/*',
+    '__tests__/*',
+    '**/__tests__/*',
   ],
   rules: {
     '@typescript-eslint/no-namespace': 'off',

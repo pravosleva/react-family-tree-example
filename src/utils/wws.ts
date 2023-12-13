@@ -1,32 +1,26 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { groupLog } from './groupLog'
 import { NFT } from '~/types'
-// import { vi } from '~/utils/vi'
-
-// const isDev = process.env.NODE_ENV === 'production'
-const PUBLIC_URL = process.env.REACT_APP_BASE_URL
-
-// let _c = 0
+const PUBLIC_URL = process.env.REACT_APP_PUBLIC_URL
 
 type TProps = {
   noSharedWorkers?: boolean;
   isDebugEnabled?: boolean;
 }
 type TTsListItem = {
+  label: string;
   descr: string;
   p: number;
   ts: number;
-  label: string;
 }
 
 class Singleton {
   private static instance: Singleton
-  opsWorker: SharedWorker | Worker;
+  private opsWorker: SharedWorker | Worker;
   noSharedWorkers: boolean | undefined;
   isDebugEnabled: boolean | undefined;
 
   private constructor({ noSharedWorkers, isDebugEnabled }: TProps) {
-    console.log(PUBLIC_URL)
     this.noSharedWorkers = noSharedWorkers
     this.isDebugEnabled = isDebugEnabled
     switch (true) {

@@ -42,7 +42,7 @@
 .tree {
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: var(--size-radius-2);
+  border-radius: var(--size-radius-4);
 }
 
 .reset {
