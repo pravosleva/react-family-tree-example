@@ -102,7 +102,7 @@ it('idValidate #5: not ok (incorrect parent format: incorrect type only)', () =>
   expect(tested).toEqual(expected)
 })
 
-it('idValidate #6: not ok (incorrect parent format: correct type only)', () => {
+it('idValidate #6: not ok (incorrect parent format: no id for parent)', () => {
   const tested = personsValidate([
     {
       id: '1',
@@ -179,7 +179,7 @@ it('idValidate #8: not ok (no id for 2nd parent)', () => {
   expect(tested).toEqual(expected)
 })
 
-it('idValidate #9: ok (no id for 2nd parent)', () => {
+it('idValidate #9: ok', () => {
   const tested = personsValidate([
     {
       id: '1',
