@@ -75,11 +75,14 @@
   object-fit: cover;
   transition: all ease-in .3s;
 }
-.smallAva:hover {
+.msgSuccess:hover > .smallAva {
   transform: scale(1.4);
   border-radius: 0px;
-  /* box-shadow: 0 5px 10px 0px rgba(7,7,7,.3); */
 }
+/* .smallAva:hover {
+  transform: scale(1.4);
+  border-radius: 0px;
+} */
 /* .smallAva:hover ~ .descr {
   opacity: 0.5;
 } */

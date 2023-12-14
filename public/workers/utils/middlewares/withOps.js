@@ -1,19 +1,19 @@
 const delay = (ms = 1000) => new Promise((res, _rej) => {
   setTimeout(res, ms)
 })
+const isTsActual = ({ limit, ts }) => {
+  const nowTs = new Date().getTime()
+  return nowTs - ts <= limit
+}
 
 const cache = new Map() // NOTE: personId => { ts, data }
-const getPersonFromCache = ({ personId, tsLimit = 5 * 1000 }) => {
+const getPersonFromCache = ({ personId, tsLimit = 60 * 1000 }) => {
   let res = {
     ok: false,
     data: null,
   }
-  const isTsValid = ({ limit, ts }) => {
-    const nowTs = new Date().getTime()
-    return nowTs - ts <= limit
-  }
   const personInfo = cache.get(personId)
-  if (!!personInfo && isTsValid({ limit: tsLimit, ts: personInfo.ts })) {
+  if (!!personInfo && !!personInfo.ts && isTsActual({ limit: tsLimit, ts: personInfo.ts })) {
     res.ok = true
     res.data = personInfo.data
   }
@@ -97,6 +97,7 @@ const withOps = async ({
                     },
                   }
                 })
+              if (!!output && output.ok) cache.set(person.id, { ts: new Date().getTime(), data: output })
             }
             if (typeof cb[eventData?.input?.opsEventType] === 'function') {
               if (dbg.workerEvs.mwsInternalLogs.isEnabled) log({
