@@ -2,7 +2,7 @@ import { proxy } from 'valtio'
 // import { initialStepMachineContextFormat, initialContractFormState } from './xstate/stepMachine/initialState'
 // import { NSP } from '~/utils/httpClient'
 // import { TStepMachineContextFormat, TContractForm, EStep } from './xstate/stepMachine/types'
-import { TPersonInfo } from '~/types'
+import { TPresonDataResponse } from '~/types'
 import pkg from '../../package.json'
 
 class Singleton {
@@ -11,7 +11,7 @@ class Singleton {
     appVersion: string;
     activeFamilyTree: any;
     personsInfo: {
-      [key: string]: TPersonInfo;
+      [key: string]: TPresonDataResponse;
     };
   }
   // NOTE: Etc. 1/3
@@ -37,7 +37,7 @@ class Singleton {
   public setActiveFamilyTree(value: any) {
     this._common.activeFamilyTree = value
   }
-  public setSinglePersonData(person: TPersonInfo) {
+  public setSinglePersonData(person: TPresonDataResponse) {
     if (person.data?.id) this._common.personsInfo[person.data.id] = person
   }
 }

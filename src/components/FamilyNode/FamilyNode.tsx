@@ -4,7 +4,7 @@ import type { ExtNode } from 'relatives-tree/lib/types';
 import css from './FamilyNode.module.css';
 import { vi } from '~/utils/vi';
 import { subscribeKey } from 'valtio/utils';
-import { TPersonInfo } from '~/types'
+import { TPresonDataResponse } from '~/types'
 
 interface FamilyNodeProps {
   node: ExtNode;
@@ -21,7 +21,7 @@ export const FamilyNode = React.memo(
     const clickHandler = useCallback(() => onClick(node.id), [node.id, onClick]);
     const clickSubHandler = useCallback(() => onSubClick(node.id), [node.id, onSubClick]);
 
-    const [personInfo, setPersonInfo] = useState<TPersonInfo | null>(vi.common.personsInfo[node.id] || null)
+    const [personInfo, setPersonInfo] = useState<TPresonDataResponse | null>(vi.common.personsInfo[node.id] || null)
     useEffect(() => {
       // NOTE: See also https://valtio.pmnd.rs/docs/api/utils/subscribeKey
       // Subscribe to all changes to the state proxy (and its child proxies)
@@ -65,13 +65,13 @@ export const FamilyNode = React.memo(
             )
           }
           {
-            !isErrored && personInfo?.data?.customService?.baseInfo && (
+            !isErrored && personInfo?.data?.customService?.data.baseInfo && (
               <div
                 className={cn(css.absoluteBadge, css.msgSuccess, 'fade-in', 'backdrop-blur')}
               >
                 {
-                  !!personInfo.data.googleSheets?.mainGallery?.[0] && (
-                    <img className={css.smallAva} src={personInfo.data.googleSheets?.mainGallery?.[0].url} alt='logo' />
+                  !!personInfo.data.googleSheets?.data.mainGallery?.[0] && (
+                    <img className={css.smallAva} src={personInfo.data.googleSheets?.data.mainGallery?.[0].url} alt='logo' />
                   )
                 }
                 <div className={cn(css.descr, 'truncate')}>
@@ -84,9 +84,9 @@ export const FamilyNode = React.memo(
                           display: 'flex',
                           flexDirection: 'column',
                         }}>
-                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.baseInfo.firstName}</span>
-                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.baseInfo.middleName}</span>
-                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.baseInfo.lastName}</span>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.data.baseInfo.firstName}</span>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.data.baseInfo.middleName}</span>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.data.baseInfo.lastName}</span>
                       </div> 
                     )
                     : node.id

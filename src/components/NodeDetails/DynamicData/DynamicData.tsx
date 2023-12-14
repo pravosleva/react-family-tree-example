@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { ResponsiveBlock } from '~/components/ResponsiveBlock'
 import { vi } from '~/utils/vi';
 import { subscribeKey } from 'valtio/utils';
-import { TPersonInfo } from '~/types'
+import { TPresonDataResponse } from '~/types'
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox'
 import { LazyImage } from '~/components/LazyImage'
 
@@ -14,7 +14,7 @@ type TProps = {
 type TImageLightboxFormat = { src: string, alt?: string }
 
 export const DynamicData = ({ id }: TProps) => {
-  const [personInfo, setPersonInfo] = useState<TPersonInfo | null>(vi.common.personsInfo[id] || null)
+  const [personInfo, setPersonInfo] = useState<TPresonDataResponse | null>(vi.common.personsInfo[id] || null)
   useEffect(() => {
     // NOTE: See also https://valtio.pmnd.rs/docs/api/utils/subscribeKey
     // Subscribe to all changes to the state proxy (and its child proxies)
@@ -27,9 +27,9 @@ export const DynamicData = ({ id }: TProps) => {
     }
   }, [setPersonInfo, id])
   // const isErrored = useMemo(() => !!personInfo && !personInfo.ok, [personInfo])
-  const galleryItems = useMemo<TImageLightboxFormat[]>(() => personInfo?.data?.googleSheets?.mainGallery
-    ? personInfo?.data?.googleSheets?.mainGallery.map(({ url, descr }) => ({ src: url, alt: descr }))
-    : [], [personInfo?.data?.googleSheets?.mainGallery])
+  const galleryItems = useMemo<TImageLightboxFormat[]>(() => personInfo?.data?.googleSheets?.data.mainGallery
+    ? personInfo?.data?.googleSheets?.data.mainGallery.map(({ url, descr }) => ({ src: url, alt: descr }))
+    : [], [personInfo?.data?.googleSheets?.data.mainGallery])
 
   return (
     <>

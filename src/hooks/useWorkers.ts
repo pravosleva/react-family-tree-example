@@ -4,7 +4,7 @@
 import { useLayoutEffect, useCallback } from 'react'
 import { groupLog, wws } from '~/utils'
 // import { NEvents } from '~/types'
-import { NFT, TPersonInfo } from '~/types'
+import { NFT, TPresonDataResponse } from '~/types'
 // import { vi } from '~/common/vi'
 import { vi } from '~/utils/vi'
 import { subscribeKey } from 'valtio/utils'
@@ -25,7 +25,7 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
           type: NFT.EWorkerToClientEvent;
           // yourData: { [key: string]: any; };
           
-          output: TPersonInfo;
+          output: TPresonDataResponse;
         };
       };
     }>({
