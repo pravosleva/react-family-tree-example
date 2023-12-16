@@ -77,7 +77,6 @@ const withOps = async ({
                   const result = await res.json();
                   switch (true) {
                     case !result.ok:
-                      console.log(result)
                       throw new Error(result.message || 'Ошибка получения данных #1')
                     case !result.data:
                       throw new Error(result.message || 'Ошибка получения данных #2')

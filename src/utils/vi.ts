@@ -13,6 +13,7 @@ class Singleton {
     personsInfo: {
       [key: string]: TPresonDataResponse;
     };
+    total: number;
   }
   // NOTE: Etc. 1/3
 
@@ -21,6 +22,7 @@ class Singleton {
       activeFamilyTree: null,
       appVersion: pkg.version,
       personsInfo: {},
+      total: 0,
     })
     // NOTE: Etc. 2/3
   }
@@ -38,7 +40,10 @@ class Singleton {
     this._common.activeFamilyTree = value
   }
   public setSinglePersonData(person: TPresonDataResponse) {
-    if (person.data?.id) this._common.personsInfo[person.data.id] = person
+    if (person.data?.id) {
+      this._common.personsInfo[person.data.id] = person
+      this._common.total = Object.keys(this._common.personsInfo).length
+    }
   }
 }
 
