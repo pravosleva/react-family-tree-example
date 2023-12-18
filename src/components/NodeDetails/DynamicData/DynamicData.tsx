@@ -7,6 +7,7 @@ import { subscribeKey } from 'valtio/utils';
 import { TPresonDataResponse } from '~/types'
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox'
 import { LazyImage } from '~/components/LazyImage'
+import { useQueryParam, NumberParam } from 'use-query-params'
 
 type TProps = {
   id: string;
@@ -31,10 +32,13 @@ export const DynamicData = ({ id }: TProps) => {
     ? personInfo?.data?.googleSheets?.data.mainGallery.map(({ url, descr }) => ({ src: url, alt: descr }))
     : [], [personInfo?.data?.googleSheets?.data.mainGallery])
 
+  const [debugModeParam] = useQueryParam('debug', NumberParam)
+  const isDebugModeEnabled = useMemo<boolean>(() => debugModeParam === 1, [debugModeParam])
+
   return (
     <>
       {
-        galleryItems.length > 0 && (
+        galleryItems.length > 0 ? (
           <ResponsiveBlock isPaddedAnyway>
             <SimpleReactLightbox>
               <div className={cn(css.srLWrapperLayout, css.bigFirst)}>
@@ -130,16 +134,20 @@ export const DynamicData = ({ id }: TProps) => {
               </div>
             </SimpleReactLightbox>
           </ResponsiveBlock>
+        ) : null
+      }
+      {
+        isDebugModeEnabled && (
+          <ResponsiveBlock
+            className={cn(
+              css.wrapper,
+            )}
+            isPaddedAnyway
+          >
+            <pre>{JSON.stringify(personInfo, null, 2)}</pre>
+          </ResponsiveBlock>
         )
       }
-      <ResponsiveBlock
-        className={cn(
-          css.wrapper,
-        )}
-        isPaddedAnyway
-      >
-        <pre>{JSON.stringify(personInfo, null, 2)}</pre>
-      </ResponsiveBlock>
     </>
   )
 }

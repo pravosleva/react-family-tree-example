@@ -2,6 +2,7 @@
 import { groupLog } from './groupLog'
 import { NFT } from '~/types'
 const PUBLIC_URL = process.env.REACT_APP_PUBLIC_URL
+import packageJson from '../../package.json'
 
 type TProps = {
   noSharedWorkers?: boolean;
@@ -25,14 +26,14 @@ class Singleton {
     this.isDebugEnabled = isDebugEnabled
     switch (true) {
       case noSharedWorkers:
-        this.opsWorker = new Worker(`${PUBLIC_URL}/workers/ops.w.js`)
+        this.opsWorker = new Worker(`${PUBLIC_URL}/workers/ops.w.js?v=${packageJson.version}`)
 
         // Etc.
         break
       default:
         this.opsWorker = SharedWorker
-          ? new SharedWorker(`${PUBLIC_URL}/workers/ops.sw.js`)
-          : new Worker(`${PUBLIC_URL}/workers/ops.w.js`)
+          ? new SharedWorker(`${PUBLIC_URL}/workers/ops.sw.js?v=${packageJson.version}`)
+          : new Worker(`${PUBLIC_URL}/workers/ops.w.js?v=${packageJson.version}`)
         if (this.opsWorker instanceof SharedWorker) this.opsWorker.port.start()
 
         // Etc.

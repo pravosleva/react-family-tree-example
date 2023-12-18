@@ -130,7 +130,7 @@ var window = self
           withRootMW({
             eventData: e.data,
             cb: {
-              [NES.Custom.Client.FamilyTree.EClientToWorkerEvent.GET_PERSONS_DATA]: ({ output }) => {
+              [NES.Custom.Client.FamilyTree.EClientToWorkerEvent.GET_PERSONS_DATA]: ({ output, _service }) => {
                 _perfInfo.tsList.push({
                   descr: `c->w:listener:opsEventType->[cb]->client: ${input.opsEventType}`,
                   p: performance.now(),
@@ -143,6 +143,7 @@ var window = self
                   data: {
                     _service: {
                       tsList: _perfInfo.tsList,
+                      ..._service,
                     },
                     output,
                   },

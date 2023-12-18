@@ -4,6 +4,7 @@ import { proxy } from 'valtio'
 // import { TStepMachineContextFormat, TContractForm, EStep } from './xstate/stepMachine/types'
 import { TPresonDataResponse } from '~/types'
 import pkg from '../../package.json'
+import type { Node } from 'relatives-tree/lib/types';
 
 class Singleton {
   private static instance: Singleton
@@ -13,7 +14,24 @@ class Singleton {
     personsInfo: {
       [key: string]: TPresonDataResponse;
     };
-    total: number;
+    counters: {
+      total: number;
+      load: {
+        processed: number;
+        minimumInfo: {
+          success: number;
+          errors: number;
+        };
+        customService: {
+          success: number;
+          errors: number;
+        };
+        googleSheets: {
+          success: string[];
+          errors: number;
+        };
+      };
+    };
   }
   // NOTE: Etc. 1/3
 
@@ -22,7 +40,24 @@ class Singleton {
       activeFamilyTree: null,
       appVersion: pkg.version,
       personsInfo: {},
-      total: 0,
+      counters: {
+        total: 0,
+        load: {
+          processed: 0,
+          minimumInfo: {
+            success: 0,
+            errors: 0,
+          },
+          customService: {
+            success: 0,
+            errors: 0,
+          },
+          googleSheets: {
+            success: [],
+            errors: 0,
+          },
+        },
+      },
     })
     // NOTE: Etc. 2/3
   }
@@ -36,14 +71,26 @@ class Singleton {
   }
   // NOTE: Etc. 3/3
   
-  public setActiveFamilyTree(value: any) {
+  public setActiveFamilyTree(value: readonly Readonly<Node>[]) {
     this._common.activeFamilyTree = value
+    this._common.counters.total = value.length
   }
   public setSinglePersonData(person: TPresonDataResponse) {
     if (person.data?.id) {
       this._common.personsInfo[person.data.id] = person
-      this._common.total = Object.keys(this._common.personsInfo).length
+
+      if (person.data.customService?.ok) this._common.counters.load.minimumInfo.success += 1
+      else this._common.counters.load.minimumInfo.errors += 1
+
+      if (person.data.customService?.ok) this._common.counters.load.customService.success += 1
+      else this._common.counters.load.customService.errors += 1
+
+      if (person.data.googleSheets?.data?.ok) this._common.counters.load.googleSheets.success.push(person.data.googleSheets?.data.id)
+      else this._common.counters.load.googleSheets.errors += 1
+    } else {
+      this._common.counters.load.minimumInfo.errors += 1
     }
+    this._common.counters.load.processed += 1
   }
 }
 

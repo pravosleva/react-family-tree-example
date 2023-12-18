@@ -45,6 +45,7 @@
   object-fit: cover;
   border-radius: 8px;
 }
+/* .srLWrapperLayout.bigFirst img:hover {} */
 
 .srLWrapperLayout.bigFirst > div > .gridItem {
   position: relative;

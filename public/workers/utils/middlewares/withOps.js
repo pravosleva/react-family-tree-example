@@ -8,7 +8,7 @@ const isTsActual = ({ limit, ts }) => {
 
 const cache = new Map() // NOTE: personId => { ts, data }
 const getPersonFromCache = ({ personId, tsLimit = 60 * 1000 }) => {
-  let res = {
+  const res = {
     ok: false,
     data: null,
   }
@@ -53,6 +53,8 @@ const withOps = async ({
           // }
 
           const { familyTree } = eventData?.input
+          let _c = 0
+          const _total = familyTree.length
 
           for (const person of familyTree) {
             const personFromCahce = getPersonFromCache({ personId: person.id })
@@ -76,12 +78,12 @@ const withOps = async ({
                 .then(async (res) => {
                   const result = await res.json();
                   switch (true) {
-                    case !result.ok:
-                      throw new Error(result.message || 'Ошибка получения данных #1')
+                    case !result?.ok:
+                      throw new Error(result.message || 'Ошибка при получении данных #1')
                     case !result.data:
-                      throw new Error(result.message || 'Ошибка получения данных #2')
+                      throw new Error(result.message || 'Ошибка при получении данных #2')
                     case !result.data?.id:
-                      throw new Error(result?.message || res?.message || 'Ошибка данных !data.id')
+                      throw new Error(result?.message || res?.message || 'Ошибка данных #3 !data.id')
                     default:
                       break
                   }
@@ -96,19 +98,35 @@ const withOps = async ({
                     },
                   }
                 })
+
               if (!!output && output.ok) cache.set(person.id, { ts: new Date().getTime(), data: output })
+            }
+
+            _c += 1
+            const _service = {
+              counters: {
+                current: _c,
+                total: _total,
+              },
             }
             if (typeof cb[eventData?.input?.opsEventType] === 'function') {
               if (dbg.workerEvs.mwsInternalLogs.isEnabled) log({
                 label: `c->(worker):port:listener:opsEventType:${eventData?.input?.opsEventType}->[cb]`,
-                msgs: ['input', input, 'output', output],
+                msgs: [
+                  'input',
+                  input,
+                  'output',
+                  output,
+                ],
               })
 
               cb[eventData?.input?.opsEventType]({
                 output,
+                _service,
               })
             }
-            // await delay(200)
+
+            await delay(100)
           }
           break
         }

@@ -59,11 +59,12 @@
 }
 .msgSuccess:hover {
   flex-direction: column;
+  /* min-width: 80px; */
+  padding: 6px;
 }
 .msgSuccess > .descr {
   text-align: right;
   transition: all ease-in .3s;
-  max-width: 100%;
 }
 .msgSuccess:hover > .descr {
   text-align: center;

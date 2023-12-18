@@ -21,11 +21,14 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
       data: {
         __eType: NFT.EWorkerToClientEvent;
         data: {
-          // output: any;
           type: NFT.EWorkerToClientEvent;
-          // yourData: { [key: string]: any; };
-          
           output: TPresonDataResponse;
+          _service: {
+            counters: {
+              current: number;
+              total: number;
+            };
+          };
         };
       };
     }>({
@@ -40,14 +43,19 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
           //   // NOTE: App logic?
           //   break
           case NFT.EWorkerToClientEvent.SINGLE_PERSON_DATA:
-            if (e.data.data.output) {
-              vi.setSinglePersonData(e.data.data.output)
-            }
+            if (isDebugEnabled) groupLog({
+              namespace: `useWorkers: by opsWorker (on data #1) [${e.data.__eType}]`,
+              items: [
+                'e.data',
+                e.data,
+              ],
+            })
+            if (e.data.data.output) vi.setSinglePersonData(e.data.data.output)
             break
           default: {
             if (isDebugEnabled) groupLog({
-              namespace: `--useWorkerOps:by-opsWorker ⚠️ (on data) UNHANDLED! [${e.data.__eType}] e.data:`,
-              items: [e.data],
+              namespace: `useWorkers: by opsWorker ⚠️ (on data) UNHANDLED! [${e.data.__eType}]`,
+              items: ['e.data', e.data],
             })
             break
           }
@@ -72,7 +80,7 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
       wName: 'opsWorker',
       cb: (e: any) => {
         if (isDebugEnabled) groupLog({
-          namespace: '--useWorkerOps:opsWorker 🚫 OnErr e:',
+          namespace: 'useWorkers: by opsWorker 🚫 OnErr e:',
           items: [e],
         })
       },
@@ -84,7 +92,7 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
         wws.terminate({
           wName,
           cb: () => {
-            if (isDebugEnabled) groupLog({ namespace: `--useWorkerOps 🚫 die [${wName}]`, items: [] })
+            if (isDebugEnabled) groupLog({ namespace: `useWorkers: by opsWorker 🚫 die [${wName}]`, items: [] })
           },
         })
       }

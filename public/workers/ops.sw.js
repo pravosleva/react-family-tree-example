@@ -141,7 +141,7 @@ let port // TODO? var ports = new Map()
             withRootMW({
               eventData: e.data,
               cb: {
-                [NES.Custom.Client.FamilyTree.EClientToWorkerEvent.GET_PERSONS_DATA]: ({ output }) => {
+                [NES.Custom.Client.FamilyTree.EClientToWorkerEvent.GET_PERSONS_DATA]: ({ output, _service }) => {
                   _perfInfo.tsList.push({
                     descr: `c->sw:listener:opsEventType->[cb]->client: ${input.opsEventType}`,
                     p: performance.now(),
@@ -152,10 +152,11 @@ let port // TODO? var ports = new Map()
                   port.postMessage({
                     __eType: NES.Custom.Client.FamilyTree.EWorkerToClientEvent.SINGLE_PERSON_DATA,
                     data: {
+                      output,
                       _service: {
                         tsList: _perfInfo.tsList,
+                        ..._service,
                       },
-                      output,
                     },
                   })
                 }
