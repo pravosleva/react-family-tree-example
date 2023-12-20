@@ -58,6 +58,7 @@ export default React.memo(
     const [debugModeParam] = useQueryParam('debug', NumberParam)
     const isDebugModeEnabled = useMemo<boolean>(() => debugModeParam === 1, [debugModeParam])
     const [schemeName] = useQueryParam('sn', StringParam)
+    const [targetFamily] = useQueryParam('target', StringParam)
     const { enqueueSnackbar } = useSnackbar()
     const showNotif = useCallback((msg: TSnackbarMessage, opts?: IOptionsObject) => {
       if (!document.hidden) enqueueSnackbar(msg, opts)
@@ -66,9 +67,9 @@ export default React.memo(
     useWorkers({ isDebugEnabled: false })
     useLayoutEffect(() => {
       switch (schemeName) {
-        case 'pravosleva-full':
-          fetch('https://pravosleva.pro/express-helper/subprojects/exp.family/pravosleva?v=9')
-          // fetch('http://localhost:5000/subprojects/exp.family/pravosleva?v=9')
+        case 'pravosleva-full': {
+          fetch(`https://pravosleva.pro/express-helper/subprojects/exp.family/pravosleva?v=10${targetFamily ? `&target=${targetFamily}` : ''}`)
+          // fetch(`http://localhost:5000/subprojects/exp.family/pravosleva?v=10${targetFamily ? `&target=${targetFamily}` : ''}`)
             .then((resp) => resp.json())
             .then(apiErrorHandler({
               validateFn: (arr) => {
@@ -91,12 +92,13 @@ export default React.memo(
               showNotif(err.message || 'Unknown API ERR #0', { variant: 'error' })
             })
           break
+        }
         default:
           vi.setActiveFamilyTree(SOURCES[DEFAULT_SOURCE])
           changeSourceHandler(DEFAULT_SOURCE, SOURCES[DEFAULT_SOURCE])
           break
       }
-    }, [schemeName, showNotif, changeSourceHandler, setIsReady])
+    }, [schemeName, showNotif, changeSourceHandler, setIsReady, targetFamily])
 
     if (!isReady) return null
     return (
@@ -150,7 +152,7 @@ export default React.memo(
             })}
             onClick={resetRootHandler}
           >
-            Сброс
+            Вернуть исходное дерево
           </button>
         )}
         {selected && (

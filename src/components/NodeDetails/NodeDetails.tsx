@@ -58,7 +58,7 @@ export const NodeDetails = memo(
           className={cn(css.stickyHeader)}
         >
           <header className={css.header}>
-            <h3 className={css.title}>{fullName}{liveTimeInfo ? <><br />{liveTimeInfo}</> : null}</h3>
+            <h3 className={css.title}>{fullName}{liveTimeInfo && !isDebugEnabled ? <><br />{liveTimeInfo}</> : null}</h3>
             <button className={css.close} onClick={closeHandler}>&#10005;</button>
           </header>
         </ResponsiveBlock>
@@ -79,7 +79,7 @@ export const NodeDetails = memo(
               isPaddedAnyway
               className={cn(css.stickyFooter)}
             >
-              <div className={css.stack0}>
+              <div className={cn(css.stack0, css.smallText)}>
                 <div><b>Processed: {snap.counters.load.processed} of {snap.counters.total}</b></div>
                 <div>Minimum info ok: {snap.counters.load.minimumInfo.success}, not ok: {snap.counters.load.minimumInfo.errors} (total: {snap.counters.load.minimumInfo.success + snap.counters.load.minimumInfo.errors})</div>
                 <div>Google Sheets info ok: {snap.counters.load.googleSheets.success.length}, not ok: {snap.counters.load.googleSheets.errors} (total: {snap.counters.load.googleSheets.success.length + snap.counters.load.googleSheets.errors})</div>
