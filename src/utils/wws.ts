@@ -31,10 +31,10 @@ class Singleton {
         // Etc.
         break
       default:
-        this.opsWorker = SharedWorker
+        this.opsWorker = typeof SharedWorker !== 'undefined'
           ? new SharedWorker(`${PUBLIC_URL}/workers/ops.sw.js?v=${packageJson.version}`)
           : new Worker(`${PUBLIC_URL}/workers/ops.w.js?v=${packageJson.version}`)
-        if (this.opsWorker instanceof SharedWorker) this.opsWorker.port.start()
+        if (typeof SharedWorker !== 'undefined' && this.opsWorker instanceof SharedWorker) this.opsWorker.port.start()
 
         // Etc.
         break
@@ -60,7 +60,7 @@ class Singleton {
         this[wName].onmessage = cb
         break
       // @ts-ignore
-      case this[wName] instanceof SharedWorker:
+      case typeof SharedWorker !== 'undefined' && this[wName] instanceof SharedWorker:
         // @ts-ignore
         this[wName].port.onmessage = cb
         break
@@ -80,7 +80,7 @@ class Singleton {
         this[wName].onmessageerror = cb
         break
       // @ts-ignore
-      case this[wName] instanceof SharedWorker:
+      case typeof SharedWorker !== 'undefined' && this[wName] instanceof SharedWorker:
         // _c++
         // @ts-ignore
         this[wName].port.onmessageerror = cb
@@ -102,7 +102,7 @@ class Singleton {
         this[wName].postMessage({ __eType: eType, ...data })
         break
       // @ts-ignore
-      case this[wName] instanceof SharedWorker:
+      case typeof SharedWorker !== 'undefined' && this[wName] instanceof SharedWorker:
         this.log({ label: 'before post to sw...', msgs: [e] })
         // @ts-ignore
         this[wName].port.postMessage({ __eType: eType, ...data })
@@ -124,7 +124,7 @@ class Singleton {
         if (cb) cb({ ok: true })
         break
       // @ts-ignore
-      case this[wName] instanceof SharedWorker:
+      case typeof SharedWorker !== 'undefined' && this[wName] instanceof SharedWorker:
         // @ts-ignore
         this[wName].port.postMessage({ __eType: NFT.EClientToWorkerEvent.DIE_WORKER })
         break

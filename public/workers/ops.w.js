@@ -23,7 +23,7 @@ importScripts('./utils/fetchRetry.js')
 // importScripts('./u/s-tools/socket.io-client@4.7.2.min.js')
 importScripts('./utils/middlewares/withRootMW.js')
 
-var window = self
+var window = self;
 
 (async function selfListenersInit({ self }) {
   const t1 = performance.now()
