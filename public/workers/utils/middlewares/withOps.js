@@ -40,6 +40,7 @@ const withOps = async ({
       switch (eventData?.input.opsEventType) {
         case NES.Custom.Client.FamilyTree.EClientToWorkerEvent.GET_PERSONS_DATA: {
           // console.log(eventData?.input)
+          
           // await delay(3000)
           // output = {
           //   ok: true,
@@ -64,6 +65,7 @@ const withOps = async ({
               output = await fetchRetry({
                 // url: 'https://pravosleva.pro/express-helper/subprojects/exp.family/get-single-person-data',
                 url: 'https://pravosleva.pro/express-helper/pravosleva-blog-2023/family-tree-2023/v1/get-single-person-info',
+                // url: 'http://localhost:5000/pravosleva-blog-2023/family-tree-2023/v1/get-single-person-info',
                 delay: 5 * 1000,
                 tries: 5,
                 fetchOptions: {
@@ -74,6 +76,11 @@ const withOps = async ({
                   }),
                   // signal: abortController.signal,
                 },
+                // cb: {
+                //   onEachError: (arg) => {
+                //     console.log(arg)
+                //   },
+                // },
               })
                 .then(async (res) => {
                   const result = await res.json();
@@ -126,7 +133,7 @@ const withOps = async ({
               })
             }
 
-            await delay(100)
+            // await delay(100)
           }
           break
         }

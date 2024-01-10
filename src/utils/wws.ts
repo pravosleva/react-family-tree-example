@@ -26,14 +26,14 @@ class Singleton {
     this.isDebugEnabled = isDebugEnabled
     switch (true) {
       case noSharedWorkers:
-        this.opsWorker = new Worker(`${PUBLIC_URL}/workers/ops.w.js?v=${packageJson.version}`)
+        this.opsWorker = new Worker(`${PUBLIC_URL}/workers/ops.worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
 
         // Etc.
         break
       default:
         this.opsWorker = typeof SharedWorker !== 'undefined'
-          ? new SharedWorker(`${PUBLIC_URL}/workers/ops.sw.js?v=${packageJson.version}`)
-          : new Worker(`${PUBLIC_URL}/workers/ops.w.js?v=${packageJson.version}`)
+          ? new SharedWorker(`${PUBLIC_URL}/workers/ops.shared-worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
+          : new Worker(`${PUBLIC_URL}/workers/ops.worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
         if (typeof SharedWorker !== 'undefined' && this.opsWorker instanceof SharedWorker) this.opsWorker.port.start()
 
         // Etc.

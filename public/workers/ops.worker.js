@@ -3,10 +3,10 @@ const tsT0 = new Date().getTime()
 const _perfInfo = {
   tsList: [
     {
-      descr: '[w]: W init',
+      descr: '[w]: Worker init',
       p: t0,
       ts: tsT0,
-      name: 'Начало загрузки W',
+      name: 'Начало загрузки Worker',
       // NOTE: Optional
       // data?: { input: { opsEventType: NEvents.EMetrixClientOutgoing.SP_MX_EV; stateValue: string; } } | any;
     },
@@ -28,7 +28,7 @@ var window = self;
 (async function selfListenersInit({ self }) {
   const t1 = performance.now()
   const tsT1 = new Date().getTime()
-  _perfInfo.tsList.push({ descr: '[w]: selfListenersInit', p: t1, ts: tsT1, label: 'Инициализация обработчиков SW' })
+  _perfInfo.tsList.push({ descr: '[w]: selfListenersInit', p: t1, ts: tsT1, label: 'Инициализация обработчиков Worker' })
 
   if (dbg.swState.isEnabled) log({ label: '⚪ Worker loaded...' })
 
@@ -40,7 +40,7 @@ var window = self;
       p: performance.now(),
       ts: new Date().getTime(),
       data: e.data,
-      name: 'W отловил сообщение от клиента',
+      name: 'Worker отловил сообщение от клиента',
     })
 
     // -- NOTE: We can validate all events from client to worker...
@@ -86,7 +86,7 @@ var window = self;
     }
 
     if (dbg.workerEvs.fromClient.isEnabled) log({
-      label: 'message received SharedWorker receive evt by client',
+      label: 'message received Worker receive evt by client',
       msgs: [e.data],
     })
 
@@ -98,10 +98,10 @@ var window = self;
         const [loadReport] = _perfInfo.tsList
         _perfInfo.tsList = [
           loadReport, {
-            descr: 'c->[w]: SW history reset',
+            descr: 'c->[w]: Worker history reset',
             p: performance.now(),
             ts: new Date().getTime(),
-            name: 'Сброс истории W',
+            name: 'Сброс истории Worker',
           },
         ]
         self.postMessage({
@@ -123,7 +123,7 @@ var window = self;
             p: performance.now(),
             ts: new Date().getTime(),
             data: e.data,
-            name: 'W Получил ивент для расчета',
+            name: 'Worker получил ивент для расчета',
           })
 
           // -- NOTE: Middlewares section
@@ -136,7 +136,7 @@ var window = self;
                   p: performance.now(),
                   ts: new Date().getTime(),
                   data: e.data,
-                  name: 'W получил результат расчета',
+                  name: 'Worker получил результат расчета',
                 })
                 self.postMessage({
                   __eType: NES.Custom.Client.FamilyTree.EWorkerToClientEvent.SINGLE_PERSON_DATA,

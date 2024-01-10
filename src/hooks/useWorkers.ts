@@ -129,7 +129,6 @@ export const useWorkers = ({ isDebugEnabled }: TProps) => {
     // NOTE: See also https://valtio.pmnd.rs/docs/api/utils/subscribeKey
     // Subscribe to all changes to the state proxy (and its child proxies)
     const unsubscribe = subscribeKey(vi.common, 'activeFamilyTree', (val) => {
-      // console.log(val)
       if (val) sendSnapshotToWorker({
         input: {
           // opsEventType: NEvents.EMetrixClientOutgoing.SP_MX_EV,

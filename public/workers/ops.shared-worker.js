@@ -3,10 +3,10 @@ const tsT0 = new Date().getTime()
 const _perfInfo = {
   tsList: [
     {
-      descr: '[sw]: SW init',
+      descr: '[sw]: SharedWorker init',
       p: t0,
       ts: tsT0,
-      name: 'Начало загрузки SW',
+      name: 'Начало загрузки SharedWorker',
       // NOTE: Optional
       // data?: { input: { opsEventType: NEvents.EMetrixClientOutgoing.SP_MX_EV; stateValue: string; } } | any;
     },
@@ -30,7 +30,7 @@ let port // TODO? var ports = new Map()
 (async function selfListenersInit({ self }) {
   const t1 = performance.now()
   const tsT1 = new Date().getTime()
-  _perfInfo.tsList.push({ descr: '[sw]: selfListenersInit', p: t1, ts: tsT1, label: 'Инициализация обработчиков SW' })
+  _perfInfo.tsList.push({ descr: '[sw]: selfListenersInit', p: t1, ts: tsT1, label: 'Инициализация обработчиков SharedWorker' })
 
   if (dbg.swState.isEnabled) log({ label: '⚪ SharedWorker loaded...' })
 
@@ -39,7 +39,7 @@ let port // TODO? var ports = new Map()
       descr: `[sw:listener] self listener: ${NES.SharedWorker.Native.ESelf.CONNECT}`,
       p: performance.now(),
       ts: new Date().getTime(),
-      name: 'SW подключен к клиенту',
+      name: 'SharedWorker подключен к клиенту',
     })
     if (dbg.swState.isEnabled) log({ label: '🟡 Client connected to SharedWorker' })
     // port = e.ports[0] // NOTE: or port = e.source
@@ -112,10 +112,10 @@ let port // TODO? var ports = new Map()
           const [loadReport] = _perfInfo.tsList
           _perfInfo.tsList = [
             loadReport, {
-              descr: 'c->[sw]: SW history reset',
+              descr: 'c->[sw]: SharedWorker history reset',
               p: performance.now(),
               ts: new Date().getTime(),
-              name: 'Сброс истории SW',
+              name: 'Сброс истории SharedWorker',
             },
           ]
           port.postMessage({ __eType: NES.Custom.EType.WORKER_TO_CLIENT_RESET_HISTORY_OK, data: { tsList: _perfInfo.tsList } })
@@ -134,7 +134,7 @@ let port // TODO? var ports = new Map()
               p: performance.now(),
               ts: new Date().getTime(),
               data: e.data,
-              name: 'SW Получил ивент мертики для расчета',
+              name: 'SharedWorker Получил ивент мертики для расчета',
             })
 
             // -- NOTE: Middlewares section
@@ -147,7 +147,7 @@ let port // TODO? var ports = new Map()
                     p: performance.now(),
                     ts: new Date().getTime(),
                     data: e.data,
-                    name: 'SW получил результат расчета',
+                    name: 'SharedWorker получил результат расчета',
                   })
                   port.postMessage({
                     __eType: NES.Custom.Client.FamilyTree.EWorkerToClientEvent.SINGLE_PERSON_DATA,
@@ -180,7 +180,7 @@ let port // TODO? var ports = new Map()
       p: performance.now(),
       ts: new Date().getTime(),
       data: { ...e },
-      name: `SW отхватил ошибку: ${e?.data?.message || 'No e.data.message'}`,
+      name: `SharedWorker отхватил ошибку: ${e?.data?.message || 'No e.data.message'}`,
     })
     log({ label: 'error in SharedWorker', msgs: [e.data] })
   })

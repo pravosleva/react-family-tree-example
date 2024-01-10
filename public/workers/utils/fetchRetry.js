@@ -2,10 +2,22 @@ function wait(delay) {
   return new Promise((resolve) => setTimeout(resolve, delay))
 }
 
-function fetchRetry({ url, delay = 1000, tries = 0, fetchOptions = {} }) {
+function fetchRetry({
+  url,
+  delay = 1000,
+  tries = 0,
+  fetchOptions = {},
+  cb,
+}) {
   let __triesLeft = tries
+  // onEachAttempt(__triesLeft)
   function onError(err) {
     __triesLeft = !!__triesLeft ? __triesLeft - 1 : 0
+    if (!!cb && typeof cb.onEachError === 'function') onEachError({
+      __triesLeft,
+      url,
+      err,
+    })
 
     if (!__triesLeft) throw err
 

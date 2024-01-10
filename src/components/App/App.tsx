@@ -68,8 +68,8 @@ export default React.memo(
     useLayoutEffect(() => {
       switch (schemeName) {
         case 'pravosleva-full': {
-          fetch(`https://pravosleva.pro/express-helper/subprojects/exp.family/pravosleva?v=10${targetFamily ? `&target=${targetFamily}` : ''}`)
-          // fetch(`http://localhost:5000/subprojects/exp.family/pravosleva?v=10${targetFamily ? `&target=${targetFamily}` : ''}`)
+          fetch(`https://pravosleva.pro/express-helper/subprojects/exp.family/pravosleva?v=11${targetFamily ? `&target=${targetFamily}` : ''}`)
+          // fetch(`http://localhost:5000/subprojects/exp.family/pravosleva?v=11${targetFamily ? `&target=${targetFamily}` : ''}`)
             .then((resp) => resp.json())
             .then(apiErrorHandler({
               validateFn: (arr) => {
@@ -94,8 +94,10 @@ export default React.memo(
           break
         }
         default:
+          showNotif(`Default demo source used: ${DEFAULT_SOURCE}`, { variant: 'error' })
           vi.setActiveFamilyTree(SOURCES[DEFAULT_SOURCE])
           changeSourceHandler(DEFAULT_SOURCE, SOURCES[DEFAULT_SOURCE])
+          setIsReady(true)
           break
       }
     }, [schemeName, showNotif, changeSourceHandler, setIsReady, targetFamily])
