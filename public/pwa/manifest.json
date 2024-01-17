@@ -1,0 +1,73 @@
+{
+  "scope": "/",
+  "start_url": "/dist.family-tree-2023/#/?sn=pravosleva-full&target=den",
+  "short_name": "FamilyTree",
+  "name": "FamilyTree 2023",
+  "orientation": "landscape-primary",
+  "display": "fullscreen",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "icons": [
+    {
+      "src": "pwa/logo-pravosleva-16x16.jpg",
+      "type": "image/jpg",
+      "sizes": "16x16"
+    },
+    {
+      "src": "pwa/logo-pravosleva-32x32.jpg",
+      "type": "image/jpg",
+      "sizes": "32x32"
+    },
+    {
+      "src": "pwa/logo-pravosleva-72x72.jpg",
+      "type": "image/jpg",
+      "sizes": "72x72"
+    },
+    {
+      "src": "pwa/logo-pravosleva-76x76.jpg",
+      "type": "image/jpg",
+      "sizes": "76x76"
+    },
+    {
+      "src": "pwa/logo-pravosleva-96x96.jpg",
+      "type": "image/jpg",
+      "sizes": "96x96"
+    },
+    {
+      "src": "pwa/logo-pravosleva-120x120.jpg",
+      "type": "image/jpg",
+      "sizes": "120x120"
+    },
+    {
+      "src": "pwa/logo-pravosleva-128x128.jpg",
+      "type": "image/jpg",
+      "sizes": "128x128"
+    },
+    {
+      "src": "pwa/logo-pravosleva-144x144.jpg",
+      "type": "image/jpg",
+      "sizes": "144x144"
+    },
+    {
+      "src": "pwa/logo-pravosleva-180x180.jpg",
+      "type": "image/jpg",
+      "sizes": "180x180"
+    },
+    {
+      "src": "pwa/android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "pwa/logo-pravosleva-384x384.jpg",
+      "type": "image/jpg",
+      "sizes": "384x384"
+    },
+    {
+      "src": "pwa/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "splash_pages": null
+}
