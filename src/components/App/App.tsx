@@ -24,6 +24,7 @@ import css from './App.module.css';
 import { NVal, personsValidate } from '~/utils/validate';
 import { groupLog } from '~/utils';
 import { FixedProgressbar } from '~/components/FixedProgressbar'
+import { FixedBirthdayList } from '~/components/FixedBirthdayList'
 
 export default React.memo(
   function App() {
@@ -170,6 +171,15 @@ export default React.memo(
           />
         )}
         <FixedProgressbar />
+        <FixedBirthdayList
+          activeRootId={rootId}
+          selectedId={selectId}
+          // onClick={setSelectId}
+          onClick={(id) => {
+            setRootId(id)
+            setSelectId(id)
+          }}
+        />
       </div>
     );
   },

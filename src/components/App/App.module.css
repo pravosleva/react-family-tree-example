@@ -62,6 +62,7 @@
 }
 
 .details {
+  z-index: 2;
   position: absolute;
   left: 10px;
   min-width: 450px;

@@ -8,6 +8,7 @@ import { DynamicData } from './DynamicData';
 import { useSnapshot } from 'valtio';
 import { vi } from '~/utils/vi';
 import { useQueryParam, NumberParam } from 'use-query-params'
+import { getFullName } from '~/utils/person-ops'
 
 interface NodeDetailsProps {
   node: Readonly<Node>;
@@ -41,13 +42,8 @@ export const NodeDetails = memo(
       () =>
       isDebugEnabled
       ? node.id
-      : snap.personsInfo[node.id]?.data.customService?.data.baseInfo
-        ? cn(
-          snap.personsInfo[node.id]?.data.customService?.data.baseInfo.firstName,
-          snap.personsInfo[node.id]?.data.customService?.data.baseInfo.middleName,
-          snap.personsInfo[node.id]?.data.customService?.data.baseInfo.lastName,
-        )
-        : (snap.personsInfo[node.id]?.message || 'Full Name ERR #0 (no data)'),
+      // @ts-ignore
+      : getFullName(snap.personsInfo[node.id]),
       [snap, node.id, isDebugEnabled]
     )
 

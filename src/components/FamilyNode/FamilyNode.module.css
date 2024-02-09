@@ -100,7 +100,8 @@
 }
 
 .isRoot {
-  border-color: rgba(0, 0, 0, .4);
+  /* border-color: rgba(0, 0, 0, .4); */
+  border-color: var(--color-info-msg-text);
 }
 
 .isHover {
