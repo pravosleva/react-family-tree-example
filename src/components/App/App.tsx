@@ -69,8 +69,8 @@ export default React.memo(
     useLayoutEffect(() => {
       switch (schemeName) {
         case 'pravosleva-full': {
-          fetch(`https://pravosleva.pro/express-helper/subprojects/exp.family/pravosleva?v=11${targetFamily ? `&target=${targetFamily}` : ''}`)
-          // fetch(`http://localhost:5000/subprojects/exp.family/pravosleva?v=11${targetFamily ? `&target=${targetFamily}` : ''}`)
+          fetch(`https://pravosleva.pro/express-helper/subprojects/exp.family/pravosleva?v=12${targetFamily ? `&target=${targetFamily}` : ''}`)
+          // fetch(`http://localhost:5000/subprojects/exp.family/pravosleva?v=12${targetFamily ? `&target=${targetFamily}` : ''}`)
             .then((resp) => resp.json())
             .then(apiErrorHandler({
               validateFn: (arr) => {

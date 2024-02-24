@@ -6,7 +6,11 @@ export namespace NVal {
   export type TRules = {
     [key: string]: {
       isRequired: boolean;
-      validate?: (val: any, index?: number) => TValidationResut;
+      validate?: ({ val, index, tested }: {
+        val: any;
+        index?: number;
+        tested: any;
+      }) => TValidationResut;
     };
   };
 }

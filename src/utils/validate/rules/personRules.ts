@@ -3,7 +3,10 @@ import { idValidate } from '~/utils/validate/idValidate'
 import { checkRules } from '~/utils/validate/checkRules'
 import { parentRules } from './parentRules'
 
-const parentsValidate = (arr: any[], index?: number) => {
+const parentsValidate = ({
+  val: arr,
+  index,
+}: any) => {
   const res: NVal.TValidationResut = { ok: true }
   const errs = []
   let _parentIndex = 0
@@ -32,7 +35,7 @@ export const personRules: NVal.TRules = {
   },
   gender: {
     isRequired: true,
-    validate: (val, idx) => {
+    validate: ({ val, index: idx }) => {
       const res: NVal.TValidationResut = { ok: true }
       if (!(val === 'male' || val === 'female')) {
         res.ok = false
@@ -49,7 +52,7 @@ export const personRules: NVal.TRules = {
   },
   children: {
     isRequired: true,
-    validate: (val, idx) => {
+    validate: ({ val, index: idx }) => {
       const res: NVal.TValidationResut = { ok: true }
       switch (true) {
         case !Array.isArray(val):

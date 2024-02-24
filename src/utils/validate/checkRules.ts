@@ -14,7 +14,7 @@ export const checkRules = ({ rules, tested, index }: {
         break
       case !!tested?.[key] && !!rules[key].validate && typeof rules[key]?.validate === 'function': {
         // @ts-ignore
-        const validate = rules[key].validate(tested[key], index)
+        const validate = rules[key].validate({ val: tested[key], index, tested })
         if (!validate.ok) {
           res.ok = false
           res.reason = validate.reason || `incorrect key "${key}"`

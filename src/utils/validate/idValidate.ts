@@ -1,6 +1,9 @@
 import { NVal } from './types'
 
-export const idValidate = (val: any, idx?: number) => {
+export const idValidate = ({
+  val,
+  index: idx
+}: any) => {
   const res: NVal.TValidationResut = { ok: true }
   if (!val || typeof val !== 'string') {
     res.ok = false

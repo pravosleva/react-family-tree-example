@@ -8,12 +8,17 @@ export const parentRules: NVal.TRules = {
   },
   type: {
     isRequired: true,
-    validate: (val, parentIndex) => {
+    validate: ({
+      val,
+      index: parentIndex,
+      tested,
+    }) => {
       const res: NVal.TValidationResut = { ok: true }
-      if (!(val === 'blood')) {
+      const possibleValues = ['blood']
+      if (!possibleValues.includes(val)) {
         res.ok = false
         res.reason = typeof parentIndex === 'number'
-          ? `incorrect person.parent.type for index ${parentIndex} (should be "blood")`
+          ? `incorrect person.parent.type for [id:${tested.id}] parent index ${parentIndex} (should be: ${possibleValues.join('|')}, received: ${val})`
           : 'incorrect person.parent.type'
       }
       return res
