@@ -83,6 +83,8 @@ export const FamilyNode = React.memo(
                         style={{
                           display: 'flex',
                           flexDirection: 'column',
+                          // border: '1px solid red',
+                          padding: '2px 6px',
                         }}>
                         <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.data.baseInfo.firstName}</span>
                         <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.data.baseInfo.middleName}</span>
