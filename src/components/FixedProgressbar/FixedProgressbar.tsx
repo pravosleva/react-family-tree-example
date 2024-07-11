@@ -12,7 +12,7 @@ export const FixedProgressbar = () => {
     <div
       style={{
         position: 'fixed',
-        bottom: '10px',
+        top: 'calc(48px + 10px)',
         left: '50%',
         transform: 'translateX(-50%)',
       }}

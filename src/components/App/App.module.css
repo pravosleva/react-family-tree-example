@@ -59,6 +59,12 @@
   border-radius: var(--size-radius-4);
   line-height: 1;
   cursor: pointer;
+
+  outline: 5px solid #FFF;
+  box-shadow: 0 5px 10px 0 #0707071a;
+  &:hover {
+    outline-color: lightgray;;
+  }
 }
 
 .details {

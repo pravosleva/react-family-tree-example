@@ -42,6 +42,7 @@ export default React.memo(
 
     const changeSourceHandler = useCallback(
       (source: string, nodes: readonly Readonly<Node>[]) => {
+        vi.resetProcessedCounter();
         setRootId(nodes[0].id);
         setNodes(nodes);
         vi.setActiveFamilyTree(nodes);

@@ -92,6 +92,9 @@ class Singleton {
     }
     this._common.counters.load.processed += 1
   }
+  public resetProcessedCounter() {
+    this._common.counters.load.processed = 0
+  }
 }
 
 // NOTE: Valtio Instance (external proxy based multistore)

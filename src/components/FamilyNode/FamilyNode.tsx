@@ -65,13 +65,13 @@ export const FamilyNode = React.memo(
             )
           }
           {
-            !isErrored && personInfo?.data?.customService?.data.baseInfo && (
+            !isErrored && personInfo?.data?.customService?.data?.baseInfo && (
               <div
                 className={cn(css.absoluteBadge, css.msgSuccess, 'fade-in', 'backdrop-blur')}
               >
                 {
-                  !!personInfo.data.googleSheets?.data.mainGallery?.[0] && (
-                    <img className={css.smallAva} src={personInfo.data.googleSheets?.data.mainGallery?.[0].url} alt='logo' />
+                  !!personInfo.data.googleSheets?.data?.mainGallery?.[0] && (
+                    <img className={css.smallAva} src={personInfo.data?.googleSheets?.data.mainGallery?.[0].url} alt='logo' />
                   )
                 }
                 <div className={cn(css.descr, 'truncate')}>
@@ -86,9 +86,9 @@ export const FamilyNode = React.memo(
                           // border: '1px solid red',
                           padding: '2px 6px',
                         }}>
-                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.data.baseInfo.firstName}</span>
-                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.data.baseInfo.middleName}</span>
-                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data.customService.data.baseInfo.lastName}</span>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data?.customService?.data?.baseInfo.firstName}</span>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data?.customService?.data?.baseInfo.middleName}</span>
+                        <span style={{maxWidth: '100%'}} className='truncate'>{personInfo.data?.customService?.data?.baseInfo.lastName}</span>
                       </div> 
                     )
                     : node.id
