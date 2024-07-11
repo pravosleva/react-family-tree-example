@@ -6,6 +6,9 @@
   border-radius: 50%;
   background: var(--color-info-msg-text);
   overflow: hidden;
+
+  outline: 5px solid #FFF;
+  box-shadow: 0 5px 10px 0 #0707071a;
 }
 .circle > .inner {
   display: flex;
