@@ -38,6 +38,7 @@ export const FamilyNode = React.memo(
     return (
       <div className={css.root} style={style}>
         <div
+          id={`family-node-${node.id}`}
           className={cn(
             css.inner,
             css[node.gender],

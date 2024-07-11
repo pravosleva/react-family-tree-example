@@ -25,6 +25,18 @@ import { NVal, personsValidate } from '~/utils/validate';
 import { groupLog } from '~/utils';
 import { FixedProgressbar } from '~/components/FixedProgressbar'
 import { FixedBirthdayList } from '~/components/FixedBirthdayList'
+import scrollIntoView from 'scroll-into-view-if-needed'
+
+const scrollIntooViewWrapper = (node: any) => {
+  setTimeout(() => {
+    scrollIntoView(node, {
+      behavior: 'smooth',
+      block: 'center',
+      boundary: document.getElementById('root'),
+      inline: 'center',
+    });
+  }, 0)
+}
 
 export default React.memo(
   function App() {
@@ -34,8 +46,20 @@ export default React.memo(
 
     const firstNodeId = useMemo(() => nodes[0].id, [nodes]);
     const [rootId, setRootId] = useState(firstNodeId);
+    useLayoutEffect(() => {
+      if (rootId) {
+        const elm = document.getElementById(`family-node-${rootId}`)
+        if (elm) scrollIntooViewWrapper(elm)
+      } else console.warn(`Elm. not found: ${rootId}`)
+    }, [rootId])
 
     const [selectId, setSelectId] = useState<string>();
+    // useLayoutEffect(() => {
+    //   if (selectId) {
+    //     const elm = document.getElementById(`family-node-${selectId}`)
+    //     if (elm) setTimeout(() => scrollIntooViewWrapper(elm), 0)
+    //   }
+    // }, [selectId])
     const [hoverId, setHoverId] = useState<string>();
 
     const resetRootHandler = useCallback(() => setRootId(firstNodeId), [firstNodeId]);
