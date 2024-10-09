@@ -13,8 +13,9 @@ function fetchRetry({
   // onEachAttempt(__triesLeft)
   function onError(err) {
     __triesLeft = !!__triesLeft ? __triesLeft - 1 : 0
-    if (!!cb && typeof cb.onEachError === 'function') onEachError({
+    if (!!cb && typeof cb.onError === 'function') cb.onError({
       __triesLeft,
+      tries,
       url,
       err,
     })

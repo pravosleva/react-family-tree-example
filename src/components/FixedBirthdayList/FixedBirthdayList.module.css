@@ -20,17 +20,27 @@
   border-bottom: 1px solid lightgray;
 }
 
+.personsList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  & > div:not(:last-child) {
+    padding-bottom: 8px;
+    border-bottom: 1px solid lightgray;
+  }
+}
+
 .absolute {
   position: absolute;
   right: 10px;
+  bottom: 10px;
   /* min-width: 500px; */
   max-width: 500px;
+  /* max-height: calc(100svh - 20px); */
+  max-height: calc(50% - 10px);
   
   word-break: break-word;
-
-  bottom: 10px;
-  /* max-height: calc(100svh - 20px); */
-  max-height: 300px;
   overflow-y: auto;
   z-index: 1;
 }
@@ -88,10 +98,10 @@
 }
 
 .tag {
-  cursor: pointer;
-  padding: 0px 8px;
+  padding: 2px 8px;
   border-radius: 16px;
   font-weight: bold;
+  width: auto;
 }
 .coloredTagDefault {
   background-color: gray;

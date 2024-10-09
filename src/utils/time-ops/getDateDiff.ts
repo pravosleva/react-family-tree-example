@@ -7,8 +7,10 @@ const difference2Parts = (milliseconds: number) => {
   const days = Math.floor(hours / 24);
   const millisecs = Math.floor(Math.abs(milliseconds)) % 1000;
   const multiple = (term: string, n: number) => n !== 1 ? `${n} ${term}s` : `1 ${term}`;
+  const years = Math.floor(days / 365);
 
   return {
+    years,
     days: days,
     hours: hours % 24,
     hoursTotal: hours,
@@ -41,6 +43,7 @@ const difference2Parts = (milliseconds: number) => {
 }
 
 type TResult = {
+  y: number;
   d: number;
   h: number;
   min: number;
@@ -64,6 +67,7 @@ export const getTimeDiff = ({
   const diffData = difference2Parts(diffMs)
 
   return {
+    y: diffData.years,
     d: diffData.days,
     h: diffData.hours,
     min: diffData.minutes,

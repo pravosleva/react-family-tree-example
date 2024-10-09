@@ -18,7 +18,7 @@ const refreshBirthdayListInMinutes = 1
 const CountdownRenderer = ({ props, days, hours, minutes, seconds, completed, total, ...rest }: any) => {
   // console.log(Object.keys(props))
   if (completed) return (
-    <div className={cn(classes.tag, classes.coloredTagSuccess)}>{getTimeAgo(props.date)}</div>
+    <span className={cn(classes.tag, classes.coloredTagSuccess)}>{getTimeAgo(props.date)}</span>
   )
   const getColorByDays = ({ isCompleted, days }: {
     isCompleted: boolean;
@@ -38,9 +38,9 @@ const CountdownRenderer = ({ props, days, hours, minutes, seconds, completed, to
   const targetClassName = getColorByDays({ isCompleted: completed, days })
 
   return (
-    <div className={cn(classes.tag, classes[targetClassName])}>
+    <span className={cn(classes.tag, classes[targetClassName])}>
       {days ? `${days} d ` : ''}{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
-    </div>
+    </span>
   )
 }
 
@@ -181,42 +181,85 @@ export const FixedBirthdayList = ({ activeRootId, onClick, selectedId }: {
         isOpened && (
           <ResponsiveBlock
             isPaddedAnyway
-            // className={cn(css.stickyHeader)}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '4px',
-            }}
+            className={cn(classes.personsList)}
           >
             {
               birthdays.map(({ id, birthday, fullName }) => {
+                const yearsBetweenBirthAndNow = !!birthday.date && !!birthday.currentYearDate
+                  ? getTimeDiff({
+                    startDate: birthday.date,
+                    finishDate: birthday.currentYearDate,
+                  })
+                  : null
+                const isNegativeFromNow = !!birthday.currentYearDate
+                  ? getTimeDiff({
+                    startDate: new Date(),
+                    finishDate: birthday.currentYearDate,
+                  }).isNegative
+                  : null
+                const yearsBetweenDescr = !!yearsBetweenBirthAndNow
+                  ? isNegativeFromNow
+                    ? `(${yearsBetweenBirthAndNow.y})`
+                    : `(will be ${yearsBetweenBirthAndNow.y})`
+                  : ''
                 return (
                   <div
                     key={id}
+                    // className={cn(classes.itemGrid)}
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      flexWrap: 'wrap',
-                      gap: '8px',
-                      color: activeRootId === id ? 'var(--color-info-msg-text)' : 'inherit'
+                      // display: 'flex',
+                      // alignItems: 'center',
+                      // flexWrap: 'wrap',
+                      // gap: '8px',
+                      color: activeRootId === id ? 'var(--color-info-msg-text)' : 'inherit',
+                      display: 'grid',
+                      gridTemplateColumns: 'minmax(120px, auto) auto 1fr',
+                      gridTemplateRows: 'auto',
+                      columnGap: '8px',
+                      rowGap: '8px',
                     }}
                   >
-                    {
-                      !!birthday.currentYearDate && (
-                        <div onClick={(_e: any) => onClick(id)}>
-                          <Countdown
-                            date={birthday.currentYearDate}
-                            renderer={CountdownRenderer}
-                          />
-                        </div>
-                      )
-                    }
                     <div
                       style={{
-                        fontWeight: selectedId === id ? 'bold' : 'inherit'
+                        fontWeight: selectedId === id
+                          ? 'bold'
+                          : 'inherit',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px',
+                        flexWrap: 'wrap',
                       }}
-                    >{fullName}</div>
-                    {!!birthday.date && <div>({getNormalizedDate(birthday.date.getTime())})</div>}
+                    >
+                      <em><span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={(_e: any) => onClick(id)}>{fullName}</span><span style={{ color: 'gray' }}>{!!yearsBetweenDescr && ` ${yearsBetweenDescr}`}</span></em>
+                      {
+                        !!birthday.currentYearDate && (
+                          <div
+                            style={{
+                              display: 'flex',
+                              gap: '8px',
+                              flexDirection: 'row',
+                              justifyContent: 'flex-start',
+                              alignItems: 'center',
+                              flexWrap: 'wrap',
+                            }}
+                          >
+                            <Countdown
+                              date={birthday.currentYearDate}
+                              renderer={CountdownRenderer}
+                            />
+                            {!!birthday.date && (
+                              <span>
+                                {getNormalizedDate(birthday.date.getTime())}
+                              </span>
+                            )}
+                              <span>{`->`}</span>
+                              <span>
+                                {getNormalizedDate(new Date(birthday.currentYearDate).getTime())}
+                              </span>
+                          </div>
+                        )
+                      }
+                    </div>
                   </div>
                 )
               })

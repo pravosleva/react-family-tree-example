@@ -66,8 +66,8 @@ const withOps = async ({
                 // url: 'https://pravosleva.pro/express-helper/subprojects/exp.family/get-single-person-data',
                 url: 'https://pravosleva.pro/express-helper/pravosleva-blog-2023/family-tree-2023/v1/get-single-person-info',
                 // url: 'http://localhost:5000/pravosleva-blog-2023/family-tree-2023/v1/get-single-person-info',
-                delay: 5 * 1000,
-                tries: 5,
+                delay: 3 * 1000,
+                tries: 3,
                 fetchOptions: {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
@@ -76,11 +76,11 @@ const withOps = async ({
                   }),
                   // signal: abortController.signal,
                 },
-                // cb: {
-                //   onEachError: (arg) => {
-                //     console.log(arg)
-                //   },
-                // },
+                cb: {
+                  onError: (arg) => {
+                    if (dbg.api.responseByServer.isEnabled) console.log(arg)
+                  },
+                },
               })
                 .then(async (res) => {
                   const result = await res.json();

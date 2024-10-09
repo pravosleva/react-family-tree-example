@@ -24,20 +24,28 @@ class Singleton {
   private constructor({ noSharedWorkers, isDebugEnabled }: TProps) {
     this.noSharedWorkers = noSharedWorkers
     this.isDebugEnabled = isDebugEnabled
-    switch (true) {
-      case noSharedWorkers:
-        this.opsWorker = new Worker(`${PUBLIC_URL}/workers/ops.worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
+    try {
+      switch (true) {
+        case noSharedWorkers:
+          this.opsWorker = new Worker(`${PUBLIC_URL}/workers/ops.worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
 
-        // Etc.
-        break
-      default:
-        this.opsWorker = typeof SharedWorker !== 'undefined'
-          ? new SharedWorker(`${PUBLIC_URL}/workers/ops.shared-worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
-          : new Worker(`${PUBLIC_URL}/workers/ops.worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
-        if (typeof SharedWorker !== 'undefined' && this.opsWorker instanceof SharedWorker) this.opsWorker.port.start()
+          // Etc.
+          break
+        default:
+          this.opsWorker = typeof SharedWorker !== 'undefined'
+            ? new SharedWorker(`${PUBLIC_URL}/workers/ops.shared-worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
+            : new Worker(`${PUBLIC_URL}/workers/ops.worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
+          if (typeof SharedWorker !== 'undefined' && this.opsWorker instanceof SharedWorker) this.opsWorker.port.start()
 
-        // Etc.
-        break
+          // Etc.
+          break
+      }
+    } catch (err) {
+      console.error(err)
+      this.opsWorker = new Worker(`${PUBLIC_URL}/workers/ops.worker.js?v=${packageJson.version}&ts=${new Date().getTime()}`)
+    } finally {
+      // @ts-ignore
+      // this.log({ label: 'Init', msgs: [`typeof this.opsWorker: ${typeof this.opsWorker}`] })
     }
   }
   public static getInstance(props: TProps): Singleton {
