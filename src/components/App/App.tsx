@@ -32,10 +32,12 @@ const scrollIntooViewWrapper = (node: any) => {
     scrollIntoView(node, {
       behavior: 'smooth',
       block: 'center',
-      boundary: document.getElementById('root'),
+      // boundary: document.getElementById('root'),
+      boundary: document.getElementById('pinch-zoom-pan'),
       inline: 'center',
+      scrollMode: 'if-needed',
     });
-  }, 0)
+  }, 100)
 }
 
 export default React.memo(

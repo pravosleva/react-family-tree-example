@@ -25,7 +25,7 @@ export const PinchZoomPan = React.memo(
     }, [min, max, captureWheel]);
 
     return (
-      <div ref={root} className={classNames(className, css.root)} style={style}>
+      <div id='pinch-zoom-pan' ref={root} className={classNames(className, css.root)} style={style}>
         <div className={css.point}>
           <div className={css.canvas}>
             {children}

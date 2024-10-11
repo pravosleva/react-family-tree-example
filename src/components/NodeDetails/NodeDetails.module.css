@@ -57,22 +57,19 @@
 
 .close {
   display: flex;
-  width: 30px;
-  min-width: 30px;
-  height: 30px;
+  width: 35px;
+  min-width: 35px;
+  height: 35px;
   border-radius: 50%;
   padding: 0;
   margin: 0;
   align-items: center;
   justify-content: center;
   line-height: 1;
-  color: #888;
-  background: transparent;
-  border: 0;
+  border: none;
   cursor: pointer;
 }
 
 .close:hover {
-  color: #fff;
   background-color: lightgray;
 }

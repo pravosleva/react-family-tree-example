@@ -11,6 +11,7 @@ import { getFullName, getBirtgdayDate } from '~/utils/person-ops'
 import Countdown, { zeroPad } from 'react-countdown'
 import { getNormalizedDate, getTimeDiff, getTimeAgo } from '~/utils/time-ops'
 import { sort } from '~/utils/array-ops'
+import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 
 const limitRangeInDays = 30
 const refreshBirthdayListInMinutes = 1
@@ -161,6 +162,7 @@ export const FixedBirthdayList = ({ activeRootId, onClick, selectedId }: {
         //   [mainCss.offsetTopForHeader]: isDebugModeEnabled,
         //   [mainCss.offsetTopForHeaderLimitedHeight]: isDebugModeEnabled,
         // },
+        'fade-in',
       )}
     >
       <ResponsiveBlock
@@ -174,13 +176,13 @@ export const FixedBirthdayList = ({ activeRootId, onClick, selectedId }: {
       >
         <header className={classes.header}>
           <h3 className={classes.title}>⭐ День Рождения в перспективе {limitRangeInDays} дней ({birthdays.length})</h3>
-          <button className={classes.toggler} onClick={handleToggle}>{isOpened ? '⬇️' : '⬆️'}</button>
+          <button className={classes.toggler} onClick={handleToggle}>{isOpened ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}</button>
         </header>
       </ResponsiveBlock>
       {
         isOpened && (
           <ResponsiveBlock
-            isPaddedAnyway
+            // isPaddedAnyway
             className={cn(classes.personsList)}
           >
             {
@@ -197,6 +199,11 @@ export const FixedBirthdayList = ({ activeRootId, onClick, selectedId }: {
                     finishDate: birthday.currentYearDate,
                   }).isNegative
                   : null
+                const congratsSymbol = !!yearsBetweenBirthAndNow
+                  ? isNegativeFromNow
+                    ? `🎉`
+                    : ''
+                  : ''
                 const yearsBetweenDescr = !!yearsBetweenBirthAndNow
                   ? isNegativeFromNow
                     ? `(${yearsBetweenBirthAndNow.y})`
@@ -205,19 +212,27 @@ export const FixedBirthdayList = ({ activeRootId, onClick, selectedId }: {
                 return (
                   <div
                     key={id}
-                    // className={cn(classes.itemGrid)}
+                    className={cn(
+                      classes.personNewsItem,
+                      {
+                        [classes.activePerson]: activeRootId === id,
+                      },
+                    )}
                     style={{
                       // display: 'flex',
                       // alignItems: 'center',
                       // flexWrap: 'wrap',
                       // gap: '8px',
-                      color: activeRootId === id ? 'var(--color-info-msg-text)' : 'inherit',
+                      // color: activeRootId === id ? 'var(--color-info-msg-text)' : 'inherit',
                       display: 'grid',
                       gridTemplateColumns: 'minmax(120px, auto) auto 1fr',
                       gridTemplateRows: 'auto',
                       columnGap: '8px',
                       rowGap: '8px',
+                      padding: '8px',
+                      cursor: 'pointer',
                     }}
+                    onClick={(_e: any) => onClick(id)}
                   >
                     <div
                       style={{
@@ -230,7 +245,7 @@ export const FixedBirthdayList = ({ activeRootId, onClick, selectedId }: {
                         flexWrap: 'wrap',
                       }}
                     >
-                      <em><span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={(_e: any) => onClick(id)}>{fullName}</span><span style={{ color: 'gray' }}>{!!yearsBetweenDescr && ` ${yearsBetweenDescr}`}</span></em>
+                      <em style={{ display: 'flex', flexDirection: 'row', gap: '8px', flexWrap: 'wrap' }}>{!!congratsSymbol && <span>{congratsSymbol}</span>}<span>{fullName}</span><span style={{ opacity: 0.5 }}>{!!yearsBetweenDescr && ` ${yearsBetweenDescr}`}</span></em>
                       {
                         !!birthday.currentYearDate && (
                           <div

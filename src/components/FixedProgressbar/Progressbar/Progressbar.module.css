@@ -1,3 +1,14 @@
+.wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 10px 0 #0707071a;
+}
 .circle {
   position: relative;
   width: 45px;

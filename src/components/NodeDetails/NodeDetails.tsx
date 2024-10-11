@@ -9,6 +9,7 @@ import { useSnapshot } from 'valtio';
 import { vi } from '~/utils/vi';
 import { useQueryParam, NumberParam } from 'use-query-params'
 import { getFullName } from '~/utils/person-ops'
+import { MdClose } from 'react-icons/md'
 
 interface NodeDetailsProps {
   node: Readonly<Node>;
@@ -48,14 +49,14 @@ export const NodeDetails = memo(
     )
 
     return (
-      <section className={cn(css.root, className, 'backdrop-blur--lite')}>
+      <section className={cn(css.root, className, 'backdrop-blur--lite', 'fade-in')}>
         <ResponsiveBlock
           isPaddedAnyway
           className={cn(css.stickyHeader)}
         >
           <header className={css.header}>
             <h3 className={css.title}>{fullName}{liveTimeInfo && !isDebugEnabled ? <><br />{liveTimeInfo}</> : null}</h3>
-            <button className={css.close} onClick={closeHandler}>&#10005;</button>
+            <button className={css.close} onClick={closeHandler}><MdClose /></button>
           </header>
         </ResponsiveBlock>
         <DynamicData id={node.id} key={node.id} />
@@ -77,8 +78,8 @@ export const NodeDetails = memo(
             >
               <div className={cn(css.stack0, css.smallText)}>
                 <div><b>Processed: {snap.counters.load.processed} of {snap.counters.total}</b></div>
-                <div>Minimum info ok: {snap.counters.load.minimumInfo.success}, not ok: {snap.counters.load.minimumInfo.errors} (total: {snap.counters.load.minimumInfo.success + snap.counters.load.minimumInfo.errors})</div>
-                <div>Google Sheets info ok: {snap.counters.load.googleSheets.success.length}, not ok: {snap.counters.load.googleSheets.errors} (total: {snap.counters.load.googleSheets.success.length + snap.counters.load.googleSheets.errors})</div>
+                <div>Minimum info Ok: {snap.counters.load.minimumInfo.success}, not Ok: {snap.counters.load.minimumInfo.errors} (total: {snap.counters.load.minimumInfo.success + snap.counters.load.minimumInfo.errors})</div>
+                <div>Google Sheets info Ok: {snap.counters.load.googleSheets.success.length}, not Ok: {snap.counters.load.googleSheets.errors} (total: {snap.counters.load.googleSheets.success.length + snap.counters.load.googleSheets.errors})</div>
               </div>
             </ResponsiveBlock>
           )

@@ -12,10 +12,13 @@ export const FixedProgressbar = () => {
     <div
       style={{
         position: 'fixed',
-        top: 'calc(48px + 10px)',
+        // top: 'calc(48px + 10px)',
+        top: '50%',
         left: '50%',
-        transform: 'translateX(-50%)',
+        transform: 'translateX(-50%) translateY(-50%)',
+        zIndex: 1000,
       }}
+      className='fade-in'
     >
       <Progressbar value={loadPercentage} />
     </div>

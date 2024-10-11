@@ -23,12 +23,23 @@
 .personsList {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 
   & > div:not(:last-child) {
     padding-bottom: 8px;
     border-bottom: 1px solid lightgray;
   }
+}
+.activePerson {
+  background-color: #0081cf;
+  color: #FFF;
+}
+.personNewsItem {
+  transition: background-color 0.2s ease;
+}
+.personNewsItem:hover {
+  /* background-color: #00b3ff; */
+  /* color: #FFF; */
+  font-weight: bold;
 }
 
 .absolute {
@@ -96,28 +107,32 @@
   border: none;
   cursor: pointer;
 }
+.toggler:hover {
+  background-color: lightgray;
+}
 
 .tag {
   padding: 2px 8px;
   border-radius: 16px;
   font-weight: bold;
   width: auto;
+  box-shadow: 0 5px 10px 0px rgba(7,7,7,.2);
 }
 .coloredTagDefault {
-  background-color: gray;
-  color: #fff;
+  background-color: #e6f4f1;
+  color: #000;
 }
 .coloredTagWarning {
-  background-color: yellow;
+  background-color: #f9f871;
   color: #000;
 }
 .coloredTagDanger {
-  background-color: red;
+  background-color: #d84b4a;
   color: #fff;
 }
 .coloredTagSuccess {
-  background-color: green;
-  color: #fff;
+  background-color: #76fac7;
+  color: #000;
 }
 .coloredTagInfo {
   background-color: var(--color-info-msg-text);
